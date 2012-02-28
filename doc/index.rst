@@ -40,4 +40,5 @@ Contents
 .. toctree::
    :glob:
 
+   drac/index
    *
