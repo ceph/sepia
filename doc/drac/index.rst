@@ -17,5 +17,6 @@ iDRAC6 Enterprise provides both three ways to interact with it:
 
 .. toctree::
    :glob:
+   :maxdepth: 1
 
    *
