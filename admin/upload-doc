@@ -1,0 +1,25 @@
+#!/bin/sh
+set -e
+
+. "$(git --exec-path)/git-sh-setup"
+cd_to_toplevel
+
+export GIT_INDEX_FILE="$GIT_DIR/index.gh-pages"
+
+find html -type f -print0 \
+| git update-index --add --replace -z --stdin
+
+EMPTY="$(git hash-object -t blob -w --stdin --no-filters </dev/null)"
+
+git update-index --add \
+    --cacheinfo 100644 "$EMPTY" html/.nojekyll
+
+TREE="$(git write-tree --prefix=html/)"
+
+COMMIT="$(git commit-tree "$TREE" <<EOF
+Regenerated html documents.
+EOF
+)"
+
+git update-ref -m 'Regenerated HTML' refs/heads/gh-pages "$COMMIT"
+git push github +gh-pages

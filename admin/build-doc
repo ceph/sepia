@@ -1,0 +1,10 @@
+#!/bin/sh
+set -e
+cd "$(dirname "$0")"
+cd ..
+
+if [ ! -e virtualenv ]; then
+    virtualenv --no-site-packages virtualenv
+fi
+./virtualenv/bin/pip install --quiet -r requirements.doc.txt
+./virtualenv/bin/sphinx-build -a -b dirhtml doc html
