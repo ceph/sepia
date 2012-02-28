@@ -22,6 +22,10 @@ of test machines, used by the Ceph project. It is managed as a Sphinx
 document tree and stored in a Git repository, to provide a combination
 of easy editability, searchability and developer friendliness.
 
+The target audience for this documentation is administrators; people
+**managing** the sepia machines. If all you need is to access the
+machines, you probably don't need to know any of this.
+
 While the Sepia machines are not publicly accessible, we hope to share
 tools & knowledge with the greater community. If you are an
 independent developer working on Ceph or related projects -- such as
