@@ -40,5 +40,6 @@ Contents
 .. toctree::
    :glob:
 
+   bios/index
    drac/index
    *
