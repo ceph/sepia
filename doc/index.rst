@@ -42,4 +42,5 @@ Contents
 
    bios/index
    drac/index
+   network/index
    *

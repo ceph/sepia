@@ -1,0 +1,85 @@
+digraph "new-sepia-network" {
+  edge [arrowhead=none];
+  node [shape=record];
+  
+  plana [label="96x plana|{<10g1>10g1|<10g2>10g2|<1g1>1g1|<1g2>1g2|<ipmi> ipmi}"];
+  burnupi [label="64x burnupi|{<10g1>10g1|<10g2>10g2|<1g1>1g1|<1g2>1g2|<ipmi> ipmi}"];
+  vercoi [label="8x vercoi|{<10g1>10g1|<10g2>10g2|<1g1 and ipmi>1g1 and ipmi|<1g2>1g2}"];
+  gw [label="gw"];
+  
+  force10_tor [label="<tor>4x force10 top-of-rack|<back> back|<mgmt> mgmt"];
+  force10_interconnect [label="<ic>2x force10 aggr|<mgmt> mgmt"];
+  
+  force10_interconnect:ic -> force10_tor:tor [weight=100, dir=both, arrowhead=crow, arrowtail=crow, style=bold];
+  
+  force10_interconnect:ic -> world:trunk [weight=100, dir=both, arrowhead=crow, arrowtail=crow, style=bold];
+  
+  subgraph front {
+    edge [color=yellow3, arrowhead=diamond];
+    
+    force10_tor:back -> plana:"10g1";
+    force10_tor:back -> burnupi:"10g1";
+  }
+  force10_tor:tor -> vercoi:"10g1" [weight=100, dir=both, arrowhead=crow, arrowtail=crow, style=bold];
+  
+  slow [label="<tor>4x 2960g tor|<front> front|<mgmt> mgmt"];
+  slow:tor -> world:trunk [weight=100, dir=both, arrowhead=crow, arrowtail=crow, style=bold];
+  
+  ipmi [label="<sepia_ipmi>4x 2960g ipmi|<mgmt> mgmt"];
+  
+  world [label="<trunk>4948 world|<pub> public|<front> front|<back> back|<sepia_ipmi> sepia ipmi|<rescue> rescue|<switch_mgmt> switch mgmt vlan|<mgmt> mgmt"];
+  
+  subgraph cluster_dh_managed {
+    label="DH managed";
+    style=dotted;
+    color=gray52;
+    
+    some_router;
+    office [shape=house];
+  }
+  
+  subgraph sepia_ipmi {
+    edge [color=blue];
+    
+    plana:ipmi -> ipmi:sepia_ipmi;
+    burnupi:ipmi -> ipmi:sepia_ipmi;
+    ipmi:sepia_ipmi -> world:sepia_ipmi;
+  }
+  
+  subgraph switch_mgmt {
+    edge [color=red];
+    
+    force10_tor:mgmt -> world:switch_mgmt;
+    force10_interconnect:mgmt -> world:switch_mgmt;
+    slow:mgmt -> world:switch_mgmt;
+    ipmi:mgmt -> world:switch_mgmt;
+    vercoi:"1g2" -> world:switch_mgmt;
+  }
+  
+  subgraph back {
+    edge [color=green, dir=front, arrowtail=diamond];
+    
+    plana:"1g1" -> slow:front;
+    burnupi:"1g1" -> slow:front;
+  }
+
+  slow:tor -> vercoi:"10g2" [weight=100, dir=both, arrowhead=crow, arrowtail=crow, style=bold, label="1g"];
+  
+  subgraph pub {
+    edge [color=orange1];
+    
+    world:trunk -> gw [weight=100, dir=both, arrowhead=crow, arrowtail=crow, color=black, style=bold];
+    world:pub -> gw;
+    world:pub -> some_router;
+  }
+  
+  gw -> world:trunk [label="serial console\nto manage switch", style=dotted];
+  
+  some_router -> office;
+  
+  subgraph rescue {
+    edge [color=brown];
+    
+    vercoi:"1g1 and ipmi" -> world:rescue [label="hypervisor access,\nhypervisor ipmi"];
+  }
+}
