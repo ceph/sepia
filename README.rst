@@ -7,4 +7,4 @@ of test machines, used by the Ceph project.
 
 For easy to read documents, please head over to
 
-http://newdreamnetwork.github.com/sepia
+http://ceph.github.com/sepia
