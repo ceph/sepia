@@ -7,9 +7,14 @@
 The Java remote console GUI client is built against ancient X
 libraries, and does not understand arrow keys etc.
 
-Discussion and solution:
-http://www.anchor.com.au/blog/2011/03/evil-hack-to-make-arrow-and-sysreq-keys-work-with-a-dell-idrac-kvm-and-linux-desktop/
+Solution: https://github.com/anchor/idrac-kvm-keyboard-fix
 
-Summary: fetch and compile the code, and run::
+Do this::
 
-	LD_PRELOAD=/path/to/keycode-hack.so javaws viewew.jnlp*
+	install -d -m0755 ~/src
+	cd ~/src
+	git clone https://github.com/anchor/idrac-kvm-keyboard-fix.git idrac-kvm-keyboard-fix.git
+	cd idrac-kvm-keyboard-fix.git
+	make
+	cd
+	LD_PRELOAD=~/src/idrac-kvm-keyboard-fix.git/keycode-hack.so javaws viewew.jnlp*
