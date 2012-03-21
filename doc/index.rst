@@ -40,6 +40,7 @@ Contents
 .. toctree::
    :glob:
 
+   servers/index
    bios/index
    drac/index
    network/index
