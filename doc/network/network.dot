@@ -4,7 +4,7 @@ digraph "new-sepia-network" {
   
   plana [label="96x plana|{<10g1>10g1|<10g2>10g2|<1g1>1g1|<1g2>1g2|<ipmi> ipmi}"];
   burnupi [label="64x burnupi|{<10g1>10g1|<10g2>10g2|<1g1>1g1|<1g2>1g2|<ipmi> ipmi}"];
-  vercoi [label="8x vercoi|{<10g1>10g1|<10g2>10g2|<1g1 and ipmi>1g1 and ipmi|<1g2>1g2}"];
+  vercoi [label="8x vercoi|{<10g1>10g1|<10g2>10g2|<1g1>1g1|<1g2>1g2|<ipmi>ipmi}"];
   gw [label="gw"];
   
   force10_tor [label="<tor>4x force10 top-of-rack|<back> back|<mgmt> mgmt"];
@@ -43,6 +43,7 @@ digraph "new-sepia-network" {
     
     plana:ipmi -> ipmi:sepia_ipmi;
     burnupi:ipmi -> ipmi:sepia_ipmi;
+    vercoi:ipmi -> ipmi:sepia_ipmi;
     ipmi:sepia_ipmi -> world:sepia_ipmi;
   }
   
@@ -53,7 +54,6 @@ digraph "new-sepia-network" {
     force10_interconnect:mgmt -> world:switch_mgmt;
     slow:mgmt -> world:switch_mgmt;
     ipmi:mgmt -> world:switch_mgmt;
-    vercoi:"1g2" -> world:switch_mgmt;
   }
   
   subgraph back {
@@ -61,6 +61,7 @@ digraph "new-sepia-network" {
     
     plana:"1g1" -> slow:front;
     burnupi:"1g1" -> slow:front;
+    vercoi:"1g1" -> slow:front;
   }
 
   slow:tor -> vercoi:"10g2" [weight=100, dir=both, arrowhead=crow, arrowtail=crow, style=bold, label="1g"];
@@ -80,6 +81,6 @@ digraph "new-sepia-network" {
   subgraph rescue {
     edge [color=brown];
     
-    vercoi:"1g1 and ipmi" -> world:rescue [label="hypervisor access,\nhypervisor ipmi"];
+    vercoi:"1g2" -> world:rescue [label="hypervisor access,\nhypervisor ipmi"];
   }
 }
