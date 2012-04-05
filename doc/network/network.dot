@@ -74,8 +74,6 @@ digraph "new-sepia-network" {
     world:pub -> some_router;
   }
   
-  gw -> world:trunk [label="serial console\nto manage switch", style=dotted];
-  
   some_router -> office;
   
   subgraph rescue {
