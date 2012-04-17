@@ -152,3 +152,7 @@ Vercoi
       | 2xUSB | (?)    | (?)    | ethernet   | Serial | VGA |
       +-------+--------+--------+------------+--------+-----+
 
+
+Networking inside the Linux host:
+
+.. graphviz:: vercoi-interfaces.dot
