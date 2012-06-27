@@ -2,6 +2,11 @@
  Vercoi
 ========
 
+.. toctree::
+   :glob:
+
+   *
+
 .. raw:: html
 
    <style>
