@@ -20,6 +20,16 @@ has no memory of previous certificates::
 
   chromium-browser --temp-profile
 
+Even better: with Firefox,
+
+ * use about:config to set browser.cache.disk_cache_ssl false
+ * remove/rename/delete "cert8.db" from your browser profile directory
+
+Now, Firefox will complain, but if you save your acceptance of the
+security exception, it will remember for the next login.  Firefox
+also seems better about actually being able to launch the Java
+remote console application.
+
 
 Fix
 ===
