@@ -13,3 +13,4 @@
    plana/index
    burnupi/index
    vercoi/index
+   senta/index
