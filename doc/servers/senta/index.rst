@@ -44,3 +44,7 @@ Senta
       | PS/2   | 2xUSB | Serial | VGA   | (front)  | (Others) |                                 |
       +--------+-------+--------+-------+----------+----------+---------------------------------+
 
+Networking inside the Linux host:
+
+.. graphviz:: senta-interfaces.dot
+

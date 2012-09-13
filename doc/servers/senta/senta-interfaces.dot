@@ -1,0 +1,57 @@
+digraph "senta-interfaces" {
+  edge [arrowhead=none];
+  node [shape=record];
+
+  subgraph cluster_phys {
+    style=invis;
+
+    subgraph cluster_phys_1g {
+      nic_1g1 [label="1g1"];
+      nic_1g2 [label="1g2"];
+
+    }
+
+    {
+      // enforce layout order
+      edge [style=invis, minlen=0];
+      nic_1g1 -> nic_1g2;
+    }
+  }
+
+  subgraph cluster_vlan {
+    style=invis;
+
+    vlan_back [label="vlan-back"];
+    vlan_ipmi [label="vlan-ipmi"];
+    vlan_pub [label="vlan-pub"];
+  }
+
+  subgraph cluster_bridge {
+    style=invis;
+
+    br_front [label="br-front"];
+    br_back [label="br-back"];
+    br_ipmi [label="br-ipmi"];
+    br_pub [label="br-pub"];
+  }
+
+  nic_1g1 -> br_front;
+
+  nic_1g2 -> {
+    vlan_back;
+    vlan_ipmi;
+    vlan_pub;
+  }
+  vlan_back -> br_back;
+  vlan_ipmi -> br_ipmi;
+  vlan_pub -> br_pub;
+
+  vms [label="VMs"];
+  {
+    br_front;
+    br_back;
+    br_ipmi;
+    br_pub;
+    } -> vms [arrowhead=crow];
+}
+
