@@ -14,3 +14,5 @@
    burnupi/index
    vercoi/index
    senta/index
+   mira/index
+   misc/index
