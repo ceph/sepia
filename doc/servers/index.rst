@@ -11,8 +11,12 @@
    :glob:
 
    plana/index
+   mira/index
    burnupi/index
    vercoi/index
    senta/index
-   mira/index
+   apama/index
+   rhoda/index
+   tala-saya/index
+   irvingi/index
    misc/index

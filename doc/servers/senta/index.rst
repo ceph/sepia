@@ -2,6 +2,13 @@
 Senta
 =========
 
+* 1u Supermicro
+* 12 core/24 thread
+* 72G RAM
+* 4x500GB MDADM
+* VM hosts
+
+
 .. raw:: html
 
    <style>

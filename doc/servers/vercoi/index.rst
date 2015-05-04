@@ -2,6 +2,12 @@
  Vercoi
 ========
 
+* 2u Dell C6100 (2 nodes/chassis)
+* 12 core/24 thread
+* 72G RAM
+* 4x500GB RAID
+* VM hosts
+
 .. toctree::
    :glob:
 

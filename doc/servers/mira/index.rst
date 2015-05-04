@@ -2,6 +2,12 @@
  Mira
 =========
 
+* 2u Supermicro
+* 4 core/8 thread
+* 16G RAM
+* 8x1T SATA disks
+* 1 gig network
+
 .. raw:: html
 
    <style>
