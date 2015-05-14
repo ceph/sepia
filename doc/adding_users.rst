@@ -15,6 +15,12 @@ VPN
 Create user
 -----------
 
+#. Get public ssh key from user, which they can generate from::
+
+    ssh-keygen -t rsa
+
+#. Add to ceph-sepia-secrets.git/ansible/inventory/group_vars/all.yml.  Add to teh `lab_users` section.  Submit a pull request.
+
 #. Create a user on teuthology.front.sepia.ceph.com::
 
      adduser --disabled-password USER
