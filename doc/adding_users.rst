@@ -1,25 +1,78 @@
-Adding users
-============
+Requesting Lab Access
+=====================
 
-VPN
----
+Send a lab admin an email with two pieces of information:
 
-#. Have user get VPN tarball from
-
-      http://ceph.com/sage/sepia-vpn-client.tar.gz
-
-#. User should extract in /etc/openvpn, follow the directions, and send the key.
-
-#. Add the secret to the VPN config on the gateway.
-
-Create user
------------
-
-#. Get public ssh key from user, which they can generate from::
+#. A public SSH key.  You may already have this (cat
+   ~/.ssh/id_rsa.pub).  If necessary, you can create a new one on the
+   machine you will be connecting from with::
 
     ssh-keygen -t rsa
 
-#. Add to ceph-sepia-secrets.git/ansible/inventory/group_vars/all.yml.  Add to teh `lab_users` section.  Submit a pull request.
+#. A VPN secret.  See below for how to set this up:
+
+Setting up VPN client
+---------------------
+
+#. Install openvpn::
+
+    apt-get install openvpn
+
+   or::
+
+    yum install -y openvpn
+
+#. Get the tarball and extract it::
+
+    cd /etc/openvpn
+    wget http://ceph.com/sage/sepia-vpn-client.tar.gz
+    tar zxvf sepia-vpn.client.tar.gz
+
+#. Create a new key.  Please use a descriptive user and host below so
+   that both you and the lab admins can identify who you are (e.g.,
+   sage@flab)::
+
+    sepia/new-client USER@HOST
+
+#. Send us the private key.
+
+#. Once everything is set at the lab, you can start the VPN with::
+
+    service openvpn start
+
+   or similar (depending on your distro).
+
+Mac/Tunnelblick
+---------------
+
+If using Mac/Tunnelblick, this is a way that's been found to work; it
+may not be the only way:
+
+#. comment out (add a leading '#' to) the line in /etc/openvpn/sepia.conf that mentions 'secret'::
+
+    # auth-user-pass sepia.client/secret
+
+#. add a new line that contains only::
+
+    auth-user-pass
+
+#. connect with Tunnelblick
+
+#. when prompted for user/pass, enter username MYUSERNAME@MYHOST as above, and for password use the secret contents of the file /etc/openvpn/sepia.client/secret, (do not use the username)
+
+#. click the "Save to keychain" box.
+
+(Alternatively command line openvpn can be used as well with the mac os X tun/tap driver).
+
+
+Adding users (lab admins)
+=========================
+
+#. Install VPN key on the gateway.
+
+#. Add the SSH key to
+   ceph-sepia-secrets.git/ansible/inventory/group_vars/all.yml.  Add
+   to teh `lab_users` section.  Submit a pull request.
 
 #. Create a user on teuthology.front.sepia.ceph.com::
 
