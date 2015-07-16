@@ -74,15 +74,14 @@ Adding users (lab admins)
    ceph-sepia-secrets.git/ansible/inventory/group_vars/all.yml.  Add
    to teh `lab_users` section.  Submit a pull request.
 
-#. Create a user on teuthology.front.sepia.ceph.com::
+#. Run ansible to create the user::
 
-     adduser --disabled-password USER
-     cd /home/USER
-     mkdir .ssh
-     cat > .ssh/authorized_keys
-     <ssh key>
-     ^D
-     chown -R --reference=. .ssh
-     chmod 700 .ssh
-     chmod 600 .ssh/*
+     cd <path-to-ceph-cm-ansible>
+     ansible-playbook -i <path...>ceph-sepia-secrets/ansible/inventory/sepia users.yml
 
+You need not use -i if you have some other way to refer to the sepia
+inventory file.
+
+See https://github.com/ceph/ceph-cm-ansible/tree/master/roles/users#usage
+for further information.
+    
