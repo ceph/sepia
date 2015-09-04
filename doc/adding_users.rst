@@ -36,6 +36,10 @@ Setting up VPN client
 
 #. Send us the private key.
 
+#. Some distros use 'nogroup' in /etc/groups; some use 'nobody'.
+   If yours does not use 'nogroup', edit the 'group' line in
+   the sepia.conf file created above.
+
 #. Once everything is set at the lab, you can start the VPN with::
 
     service openvpn start
