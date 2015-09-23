@@ -4,7 +4,11 @@ New user basics
 Set up teuthology
 -----------------
 
-#. Log in to teuthology.front.sepia.ceph.com
+#. Request access via the process described at:
+   https://github.com/ceph/sepia/blob/master/doc/adding_users.rst
+
+#. Log in to teuthology.front.sepia.ceph.com using the account that was created
+   for you (NOT 'ubuntu')
 
 #. Clone teuthology::
 
