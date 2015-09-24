@@ -1,7 +1,15 @@
 Requesting Lab Access
 =====================
 
-Send a lab admin an email with two pieces of information:
+`File a ticket <http://tracker.ceph.com/projects/lab/issues/new>`_ with these
+pieces of information:
+
+#. Whether you are only requesting access to schedule jobs (and view their
+   results), or also to run jobs manually. The latter is more restricted in
+   that it is usually only granted to core developers.
+
+#. The username you would like to use. This should probably just be the first
+   part of your email address, but exceptions are possible.
 
 #. A public SSH key.  You may already have this (cat
    ~/.ssh/id_rsa.pub).  If necessary, you can create a new one on the
@@ -74,9 +82,13 @@ Adding users (lab admins)
 
 #. Install VPN key on the gateway.
 
+#. If the user is being granted access to running unscheduled/manual jobs,
+   follow the keys.git process at:
+   https://github.com/ceph/keys/blob/master/README.rst
+
 #. Add the SSH key to
-   ceph-sepia-secrets.git/ansible/inventory/group_vars/all.yml.  Add
-   to teh `lab_users` section.  Submit a pull request.
+   ceph-sepia-secrets.git/ansible/inventory/group_vars/all.yml. Add to the
+   `lab_users` section (or, for admins, `admin_users`). Submit a pull request.
 
 #. Run ansible to create the user::
 
@@ -88,4 +100,3 @@ inventory file.
 
 See https://github.com/ceph/ceph-cm-ansible/tree/master/roles/users#usage
 for further information.
-    
