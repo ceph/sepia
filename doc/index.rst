@@ -17,6 +17,8 @@ individual species in the *sepia* genus, for example `sepia plana`_.
 .. _`genus of cuttlefish`: http://en.wikipedia.org/wiki/Sepia_(genus)
 .. _`sepia plana`: http://en.wikipedia.org/wiki/Sepia_plana
 
+A useful reference for such things is http://animaldiversity.org/
+
 This repository contains notes on managing and using the "Sepia" lab
 of test machines, used by the Ceph project. It is managed as a Sphinx
 document tree and stored in a Git repository, to provide a combination
@@ -41,7 +43,4 @@ Contents
    :glob:
 
    servers/index
-   bios/index
-   drac/index
-   network/index
    *

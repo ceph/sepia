@@ -35,7 +35,7 @@ Lock an individual machine
 
 Lock a machine.  Optionally specify the OS type/version.::
 
-     teuthology-lock --lock-many 1 --machine-type plana,mira,burnupi | tee mine.yaml
+     teuthology-lock --lock-many 1 --machine-type mira | tee mine.yaml
 
 Safely clean up and unlock a machine
 ------------------------------------
@@ -55,7 +55,7 @@ Run a job on a single machine
 
 #. Get a machine for it::
 
-     teuthology-lock --lock-many NUM --machine-type plana,mira,burnupi >> foo.yaml
+     teuthology-lock --lock-many NUM --machine-type mira >> foo.yaml
 
 #. Run the test::
 
