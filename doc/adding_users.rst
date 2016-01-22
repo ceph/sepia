@@ -17,7 +17,7 @@ pieces of information:
 
     ssh-keygen -t rsa
 
-#. A VPN secret.  See below for how to set this up:
+#. A hashed VPN password.  See below for how to set this up:
 
 Setting up VPN client
 ---------------------
@@ -36,13 +36,14 @@ Setting up VPN client
     wget http://ceph.com/sage/sepia-vpn-client.tar.gz
     tar zxvf sepia-vpn.client.tar.gz
 
-#. Create a new key.  Please use a descriptive user and host below so
+#. Create a new VPN password.  Please use a descriptive user and host below so
    that both you and the lab admins can identify who you are (e.g.,
    sage@flab)::
 
     sepia/new-client USER@HOST
 
-#. Send us the private key.
+    and capture its output to include in the ticket.  This is your
+    hashed VPN password.
 
 #. Some distros use 'nogroup' in /etc/groups; some use 'nobody'.
    If yours does not use 'nogroup', edit the 'group' line in
