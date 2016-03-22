@@ -81,23 +81,29 @@ may not be the only way:
 Adding users (lab admins)
 =========================
 
-#. Install VPN key on the gateway.
+#. Add the user's ssh public key to the `keys <https://github.com/ceph/keys>`_ repo
 
-#. If the user is being granted access to running unscheduled/manual jobs,
-   follow the keys.git process at:
-   https://github.com/ceph/keys/blob/master/README.rst
+#. Create new user entry under ``lab_users`` (or ``admin_users`` if applicable) in `ceph-sepia-secrets.git/ansible/inventory/group_vars/all.yml <https://github.com/ceph/ceph-sepia-secrets/blob/master/ansible/inventory/group_vars/all.yml>`_::
 
-#. Add the SSH key to
-   ceph-sepia-secrets.git/ansible/inventory/group_vars/all.yml. Add to the
-   `lab_users` section (or, for admins, `admin_users`). Submit a pull request.
+     # Example:
+     - name: uname
+       key: https://raw.githubusercontent.com/ceph/keys/master/ssh/uname.pub
+       ovpn: uname@host asdf etc.
 
-#. Run ansible to create the user::
+#. Once both PRs have been merged, make sure your local repos are up to date and run the ansible to add the user to the OpenVPN gateway, teuthology, and testnodes::
 
      cd <path-to-ceph-cm-ansible>
-     ansible-playbook -i <path...>ceph-sepia-secrets/ansible/inventory/sepia users.yml
+     ansible-playbook -i <path-to-ceph-sepia-secrets>/ansible/inventory/sepia gateway.yml --tags="users"
+     ansible-playbook -i <path-to-ceph-sepia-secrets>/ansible/inventory/sepia teuthology.yml --limit="teuthology*" --tags="user,pubkeys"
+
+#. And if you're feeling generous [*]_::
+
+     ansible-playbook -i <path-to-ceph-sepia-secrets>/ansible/inventory/sepia users.yml
 
 You need not use -i if you have some other way to refer to the sepia
 inventory file.
+
+.. [*] Since the ``testnodes`` role, and thus, ``users``, role gets run with each teuthology run, the user account will eventually get added to all the testnodes either way.
 
 See https://github.com/ceph/ceph-cm-ansible/tree/master/roles/users#usage
 for further information.
