@@ -34,7 +34,7 @@ Setting up VPN client
 
     cd /etc/openvpn
     wget http://ceph.com/sage/sepia-vpn-client.tar.gz
-    tar zxvf sepia-vpn.client.tar.gz
+    tar zxvf sepia-vpn-client.tar.gz
 
 #. Create a new VPN password.  Please use a descriptive user and host below so
    that both you and the lab admins can identify who you are (e.g.,
