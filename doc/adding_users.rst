@@ -1,23 +1,35 @@
 Requesting Lab Access
 =====================
 
-`File a ticket <http://tracker.ceph.com/projects/lab/issues/new>`_ with these
-pieces of information:
+#. `File a ticket <http://tracker.ceph.com/projects/lab/issues/new>`_.
 
-#. Whether you are only requesting access to schedule jobs (and view their
-   results), or also to run jobs manually. The latter is more restricted in
-   that it is usually only granted to core developers.
+#. Set **Tracker** to "Support"
 
-#. The username you would like to use. This should probably just be the first
-   part of your email address, but exceptions are possible.
+#. Set **Issue template** to "Sepia Lab Access Request."
 
-#. A public SSH key.  You may already have this (cat
-   ~/.ssh/id_rsa.pub).  If necessary, you can create a new one on the
-   machine you will be connecting from with::
+   **NOTE:** you may need to disable javascript-blocking browser plugins.
 
-    ssh-keygen -t rsa
+#. Fill out the issue template with the following information:
 
-#. A hashed VPN password.  See below for how to set this up:
+  *  Whether you are only requesting access to schedule jobs (and view their
+     results), or also to run jobs manually. The latter is more restricted in
+     that it is usually only granted to core developers.
+
+  *  The username you would like to use. This should probably just be the first
+     part of your email address, but exceptions are possible.
+  
+  *  Alternate e-mail addresses (other than the one you used to create your 
+     Tracker account.
+  
+  *  Existing contributions to Ceph
+  
+  *  A public SSH key.  You may already have this (``cat
+     ~/.ssh/id_rsa.pub``).  If necessary, you can create a new one on the
+     machine you will be connecting from with::
+  
+      ssh-keygen -t rsa
+  
+  *  A hashed VPN password.  See below for how to set this up:
 
 Setting up VPN client
 ---------------------
