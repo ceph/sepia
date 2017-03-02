@@ -22,4 +22,4 @@ EOF
 )"
 
 git update-ref -m 'Regenerated HTML' refs/heads/gh-pages "$COMMIT"
-git push github +gh-pages
+git push origin +gh-pages

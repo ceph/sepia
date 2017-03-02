@@ -1,10 +1,4 @@
-=====================================================
- Sepia -- Notes on the test lab for the Ceph project
-=====================================================
+DEPRECATED - Please visit http://wiki.sepia.ceph.com
+----------------------------------------------------
 
-This repository contains notes on managing and using the "Sepia" lab
-of test machines, used by the Ceph project.
-
-For easy to read documents, please head over to
-
-http://ceph.github.com/sepia
+This repo has been deprecated in favor of a wiki hosted in the Sepia lab.
