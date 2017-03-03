@@ -1,0 +1,177 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Notes creating gitbuilder-ceph-rpm-fedora22-amd64-basic &#8212; Sepia -- Notes on the test lab for the Ceph project</title>
+    
+    <link rel="stylesheet" href="../_static/sepia.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     'dev',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex/" />
+    <link rel="search" title="Search" href="../search/" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex/" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="nav-item nav-item-0"><a href="../">Sepia -- Notes on the test lab for the Ceph project</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="notes-creating-gitbuilder-ceph-rpm-fedora22-amd64-basic">
+<h1>Notes creating gitbuilder-ceph-rpm-fedora22-amd64-basic<a class="headerlink" href="#notes-creating-gitbuilder-ceph-rpm-fedora22-amd64-basic" title="Permalink to this headline">¶</a></h1>
+<p>These are the steps I took to create a fedora 22 builder.  YMMV for other distros.</p>
+<p>Some/most of this should be automated in the fabfile... except that we
+likely want to replace that with some other tool that also/instead
+does jenkins builders, so I&#8217;m not inclined to invest in adding it
+right now.</p>
+<ol class="arabic simple">
+<li>meta file:</li>
+</ol>
+<blockquote>
+<div><p>cat &gt; meta-data
+downburst:</p>
+<blockquote>
+<div><p>disk-size: 40G
+cpus: 4
+ram: 16G
+distro: fedora
+distroversion: &#8220;22&#8221;
+arch: x86_64
+networks:</p>
+<blockquote>
+<div><ul class="simple">
+<li>source: front</li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+</div></blockquote>
+<ol class="arabic simple">
+<li>user file:</li>
+</ol>
+<blockquote>
+<div>cat &gt; user-data
+user: ubuntu</div></blockquote>
+<ol class="arabic simple">
+<li>downburst it:</li>
+</ol>
+<blockquote>
+<div>git clone git://github.com/ceph/downburst
+cd downburst
+./bootstrap
+sudo virtualenv/bin/downburst -v create &#8211;user-data user-data &#8211;meta-data meta-data gitbuilder-ceph-rpm-fedora22-amd64-basic</div></blockquote>
+<ol class="arabic simple">
+<li>connect:</li>
+</ol>
+<blockquote>
+<div><a class="reference external" href="mailto:ubuntu&#37;&#52;&#48;irvingi07">ubuntu<span>&#64;</span>irvingi07</a>:~/downburst$ ssh <a class="reference external" href="mailto:ubuntu&#37;&#52;&#48;gitbuilder-ceph-rpm-fedora22-amd64-basic&#46;front&#46;sepia&#46;ceph&#46;com">ubuntu<span>&#64;</span>gitbuilder-ceph-rpm-fedora22-amd64-basic<span>&#46;</span>front<span>&#46;</span>sepia<span>&#46;</span>ceph<span>&#46;</span>com</a></div></blockquote>
+<ol class="arabic simple">
+<li>install ssh keys (be sure to include <a class="reference external" href="mailto:ubuntu&#37;&#52;&#48;teuthology">ubuntu<span>&#64;</span>teuthology</a>):</li>
+</ol>
+<blockquote>
+<div>cat &gt;&gt; .ssh/authorized_keys
+...</div></blockquote>
+<ol class="arabic simple">
+<li>install redhat-lsb:</li>
+</ol>
+<blockquote>
+<div>sudo dnf install -y redhat-lsb</div></blockquote>
+<ol class="arabic simple">
+<li>make sure &#8216;wheel&#8217; group doesn&#8217;t need a password for sudo, like so:</li>
+</ol>
+<blockquote>
+<div>%wheel  ALL=(ALL)       NOPASSWD: ALL</div></blockquote>
+<ol class="arabic simple">
+<li>disable selinux (set SELINUX=disabled):</li>
+</ol>
+<blockquote>
+<div>sudo vi /etc/selinux/config
+sudo reboot</div></blockquote>
+<ol class="arabic simple">
+<li>add autobuild-ceph user to group wheel:</li>
+</ol>
+<blockquote>
+<div>sudo vi /etc/group</div></blockquote>
+<ol class="arabic simple">
+<li>add gitbuilder to fabfile.py list at the top</li>
+<li>run fab.  ensure you have gnupg <a href="#id1"><span class="problematic" id="id2">*</span></a>.gpg and rsync-key[.pub] in your autobuild-ceph checkout:</li>
+</ol>
+<blockquote>
+<div>bin/fab gitbuilder_ceph_rpm:<a class="reference external" href="mailto:host=ubuntu&#37;&#52;&#48;gitbuilder-ceph-rpm-fedora22-amd64-basic&#46;front&#46;sepia&#46;ceph&#46;com">host=ubuntu<span>&#64;</span>gitbuilder-ceph-rpm-fedora22-amd64-basic<span>&#46;</span>front<span>&#46;</span>sepia<span>&#46;</span>ceph<span>&#46;</span>com</a></div></blockquote>
+<ol class="arabic simple">
+<li>set up lighttpd:</li>
+</ol>
+<blockquote>
+<div>bin/fab gitbuilder_serve_rpm:<a class="reference external" href="mailto:host=ubuntu&#37;&#52;&#48;gitbuilder-ceph-rpm-fedora22-amd64-basic&#46;front&#46;sepia&#46;ceph&#46;com">host=ubuntu<span>&#64;</span>gitbuilder-ceph-rpm-fedora22-amd64-basic<span>&#46;</span>front<span>&#46;</span>sepia<span>&#46;</span>ceph<span>&#46;</span>com</a></div></blockquote>
+<ol class="arabic simple">
+<li>set up junit4.jar symlink:</li>
+</ol>
+<blockquote>
+<div>sudo ln -s junit.jar /usr/share/java/junit4.jar</div></blockquote>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../">Table Of Contents</a></h3>
+
+
+<!-- ugly kludge to make genindex look like it's part of the toc -->
+<ul style="margin-top: -10px"><li class="toctree-l1"><a class="reference internal" href="../genindex/">Index</a></li></ul>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search/" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex/" title="General Index"
+             >index</a></li>
+        <li class="nav-item nav-item-0"><a href="../">Sepia -- Notes on the test lab for the Ceph project</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2012, New Dream Network.
+    </div>
+  </body>
+</html>

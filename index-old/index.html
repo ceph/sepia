@@ -1,0 +1,155 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Sepia – Notes on the test lab for the Ceph project &#8212; Sepia -- Notes on the test lab for the Ceph project</title>
+    
+    <link rel="stylesheet" href="../_static/sepia.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     'dev',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex/" />
+    <link rel="search" title="Search" href="../search/" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex/" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="nav-item nav-item-0"><a href="../">Sepia -- Notes on the test lab for the Ceph project</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="sepia-notes-on-the-test-lab-for-the-ceph-project">
+<h1>Sepia &#8211; Notes on the test lab for the Ceph project<a class="headerlink" href="#sepia-notes-on-the-test-lab-for-the-ceph-project" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="http://ceph.com/">Ceph</a> is a unified, distributed storage system that operates on a large
+number of hosts connected by a TCP/IP network.</p>
+<p><cite>Sepia</cite> is the name we gave to our pool of test machines. It happens
+to be both a color and a <a class="reference external" href="http://en.wikipedia.org/wiki/Sepia_(genus)">genus of cuttlefish</a>. When we have
+different kinds of hardware in the <cite>sepia</cite> pool, we name them after
+individual species in the <em>sepia</em> genus, for example <a class="reference external" href="http://en.wikipedia.org/wiki/Sepia_plana">sepia plana</a>.</p>
+<p>A useful reference for such things is <a class="reference external" href="http://animaldiversity.org/">http://animaldiversity.org/</a></p>
+<p>This repository contains notes on managing and using the &#8220;Sepia&#8221; lab
+of test machines, used by the Ceph project. It is managed as a Sphinx
+document tree and stored in a Git repository, to provide a combination
+of easy editability, searchability and developer friendliness.</p>
+<p>The target audience for this documentation is administrators; people
+<strong>managing</strong> the sepia machines. If all you need is to access the
+machines, you probably don&#8217;t need to know any of this.</p>
+<p>While the Sepia machines are not publicly accessible, we hope to share
+tools &amp; knowledge with the greater community. If you are an
+independent developer working on Ceph or related projects &#8211; such as
+Ceph integration to OpenStack &#8211; do contact us and we might be able to
+give you access to the hardware resources of the <cite>sepia</cite> lab. Or an
+offer of employment ;)</p>
+<div class="section" id="contents">
+<h2>Contents<a class="headerlink" href="#contents" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../servers/">Servers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../servers/mira/">Mira</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../servers/senta/">Senta</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../servers/apama/">apama001 - apama002</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../servers/rhoda/">rhoda01 - rhoda04</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../servers/tala-saya/">Tala and Saya</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../servers/irvingi/">irvingi01 - irvingi08</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../servers/misc/">Misc Servers</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../adding_users/">Requesting Lab Access</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../adding_users/#setting-up-vpn-client">Setting up VPN client</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../adding_users/#mac-tunnelblick">Mac/Tunnelblick</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../adding_users/#adding-users-lab-admins">Adding users (lab admins)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gitbuilder/">Notes creating gitbuilder-ceph-rpm-fedora22-amd64-basic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../">Sepia &#8211; Notes on the test lab for the Ceph project</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ipmi/">Using IPMI on physical machines</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../ipmi/#power-cycling">Power cycling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ipmi/#serial-console">Serial console</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../make-check-bot/">Make check bot</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../make-check-bot/#gitlab-instance">GitLab instance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../make-check-bot/#jenkins-slave">Jenkins Slave</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../new_user/">New user basics</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../new_user/#set-up-teuthology">Set up teuthology</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../new_user/#lock-an-individual-machine">Lock an individual machine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../new_user/#safely-clean-up-and-unlock-a-machine">Safely clean up and unlock a machine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../new_user/#run-a-job-on-a-single-machine">Run a job on a single machine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../new_user/#view-the-queue">View the queue</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../new_user/#submit-a-job-to-the-queue">Submit a job to the queue</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../new_user/#schedule-a-test-suite">Schedule a test suite</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../vps/">VMs and containers</a></li>
+</ul>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../">Table Of Contents</a></h3>
+
+
+<!-- ugly kludge to make genindex look like it's part of the toc -->
+<ul style="margin-top: -10px"><li class="toctree-l1"><a class="reference internal" href="../genindex/">Index</a></li></ul>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search/" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex/" title="General Index"
+             >index</a></li>
+        <li class="nav-item nav-item-0"><a href="../">Sepia -- Notes on the test lab for the Ceph project</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2012, New Dream Network.
+    </div>
+  </body>
+</html>

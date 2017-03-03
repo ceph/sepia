@@ -1,0 +1,147 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Using serial consoles &mdash; Sepia -- Notes on the test lab for the Ceph project</title>
+    
+    <link rel="stylesheet" href="../_static/sepia.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     'dev',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="top" title="Sepia -- Notes on the test lab for the Ceph project" href="../" />
+    <link rel="next" title="VMs and containers" href="../vps/" />
+    <link rel="prev" title="New user basics" href="../new_user/" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex/" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../vps/" title="VMs and containers"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../new_user/" title="New user basics"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../">Sepia -- Notes on the test lab for the Ceph project</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="using-serial-consoles">
+<h1>Using serial consoles<a class="headerlink" href="#using-serial-consoles" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="on-plana">
+<h2>On <cite>plana</cite><a class="headerlink" href="#on-plana" title="Permalink to this headline">¶</a></h2>
+<p>To start a session:</p>
+<div class="highlight-python"><div class="highlight"><pre>ssh root@planaNN.ipmi.sepia.ceph.com -t console com2
+</pre></div>
+</div>
+<p>Special keys cheat sheet:</p>
+<div class="highlight-python"><div class="highlight"><pre>KEY MAPPING FOR CONSOLE REDIRECTION:
+
+Use the &lt;ESC&gt;&lt;0&gt; key sequence for &lt;F10&gt;
+Use the &lt;ESC&gt;&lt;!&gt; key sequence for &lt;F11&gt;
+Use the &lt;ESC&gt;&lt;@&gt; key sequence for &lt;F12&gt;
+
+Use the &lt;ESC&gt;&lt;Ctrl&gt;&lt;M&gt; key sequence for &lt;Ctrl&gt;&lt;M&gt;
+Use the &lt;ESC&gt;&lt;Ctrl&gt;&lt;H&gt; key sequence for &lt;Ctrl&gt;&lt;H&gt;
+Use the &lt;ESC&gt;&lt;Ctrl&gt;&lt;I&gt; key sequence for &lt;Ctrl&gt;&lt;I&gt;
+Use the &lt;ESC&gt;&lt;Ctrl&gt;&lt;J&gt; key sequence for &lt;Ctrl&gt;&lt;J&gt;
+
+Use the &lt;ESC&gt;&lt;X&gt;&lt;X&gt; key sequence for &lt;Alt&gt;&lt;x&gt;, where x is any letter
+key, and X is the upper case of that key
+
+Use the &lt;ESC&gt;&lt;R&gt;&lt;ESC&gt;&lt;r&gt;&lt;ESC&gt;&lt;R&gt; key sequence for &lt;Ctrl&gt;&lt;Alt&gt;&lt;Del&gt;
+</pre></div>
+</div>
+<div class="admonition-todo admonition" id="index-0">
+<p class="first admonition-title">Todo</p>
+<p class="last">Move plana to use ipmi sol too, to avoid lockouts?</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../">Table Of Contents</a></h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../servers/">Servers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../adding_users/">Requesting Lab Access</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../adding_users/#adding-users-lab-admins">Adding users (lab admins)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gitbuilder/">Notes creating gitbuilder-ceph-rpm-fedora22-amd64-basic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ipmi/">Using IPMI on physical machines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../make-check-bot/">Make check bot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../new_user/">New user basics</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Using serial consoles</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#on-plana">On <cite>plana</cite></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../vps/">VMs and containers</a></li>
+</ul>
+
+
+<!-- ugly kludge to make genindex look like it's part of the toc -->
+<ul style="margin-top: -10px"><li class="toctree-l1"><a class="reference internal" href="../genindex/">Index</a></li></ul>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search/" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex/" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../vps/" title="VMs and containers"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../new_user/" title="New user basics"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../">Sepia -- Notes on the test lab for the Ceph project</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2012, New Dream Network.
+    </div>
+  </body>
+</html>

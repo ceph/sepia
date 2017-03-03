@@ -1,0 +1,149 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Arrow keys etc don’t work in DRAC remote console &mdash; Sepia -- Notes on the test lab for the Ceph project</title>
+    
+    <link rel="stylesheet" href="../../_static/sepia.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     'dev',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+    <link rel="top" title="Sepia -- Notes on the test lab for the Ceph project" href="../../" />
+    <link rel="up" title="Dell’s DRAC out-of-band management system" href="../" />
+    <link rel="next" title="How to fix serial console in use error" href="../serial-console-in-use/" />
+    <link rel="prev" title="Remote console doesn’t launch" href="../remote-console-integration/" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex/" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../serial-console-in-use/" title="How to fix serial console in use error"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../remote-console-integration/" title="Remote console doesn’t launch"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../">Sepia -- Notes on the test lab for the Ceph project</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../" accesskey="U">Dell&#8217;s DRAC out-of-band management system</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="arrow-keys-etc-don-t-work-in-drac-remote-console">
+<h1>Arrow keys etc don&#8217;t work in DRAC remote console<a class="headerlink" href="#arrow-keys-etc-don-t-work-in-drac-remote-console" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Affects:</th><td class="field-body"><cite>plana</cite>, maybe <cite>burnupi</cite>; not needed for <cite>vercoi</cite></td>
+</tr>
+</tbody>
+</table>
+<p>The Java remote console GUI client is built against ancient X
+libraries, and does not understand arrow keys etc.</p>
+<p>Solution: <a class="reference external" href="https://github.com/anchor/idrac-kvm-keyboard-fix">https://github.com/anchor/idrac-kvm-keyboard-fix</a></p>
+<p>Do this:</p>
+<div class="highlight-python"><div class="highlight"><pre>install -d -m0755 ~/src
+cd ~/src
+git clone https://github.com/anchor/idrac-kvm-keyboard-fix.git idrac-kvm-keyboard-fix.git
+cd idrac-kvm-keyboard-fix.git
+make
+cd
+LD_PRELOAD=~/src/idrac-kvm-keyboard-fix.git/keycode-hack.so javaws viewew.jnlp*
+</pre></div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../../">Table Of Contents</a></h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../servers/">Servers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../bios/">BIOS settings</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../">Dell&#8217;s DRAC out-of-band management system</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../remote-console-focus/">Remote console loses keyboard focus</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../remote-console-integration/">Remote console doesn&#8217;t launch</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Arrow keys etc don&#8217;t work in DRAC remote console</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../serial-console-in-use/">How to fix serial console in use error</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ssh-keys/">SSH RSA keys must be &lt;=2047 bits</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ssl-certs/">Browser Refuses SSL Certificates</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../network/">Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../adding_users/">Requesting Lab Access</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../adding_users/#adding-users-lab-admins">Adding users (lab admins)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gitbuilder/">Notes creating gitbuilder-ceph-rpm-fedora22-amd64-basic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ipmi/">Using IPMI on physical machines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../new_user/">New user basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../serial-console/">Using serial consoles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../vps/">VMs and containers</a></li>
+</ul>
+
+
+<!-- ugly kludge to make genindex look like it's part of the toc -->
+<ul style="margin-top: -10px"><li class="toctree-l1"><a class="reference internal" href="../../genindex/">Index</a></li></ul>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search/" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex/" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../serial-console-in-use/" title="How to fix serial console in use error"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../remote-console-integration/" title="Remote console doesn’t launch"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../">Sepia -- Notes on the test lab for the Ceph project</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../" >Dell&#8217;s DRAC out-of-band management system</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2012, New Dream Network.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>VMs and containers &#8212; Sepia -- Notes on the test lab for the Ceph project</title>
+    
+    <link rel="stylesheet" href="../_static/sepia.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     'dev',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex/" />
+    <link rel="search" title="Search" href="../search/" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex/" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="nav-item nav-item-0"><a href="../">Sepia -- Notes on the test lab for the Ceph project</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="vms-and-containers">
+<h1>VMs and containers<a class="headerlink" href="#vms-and-containers" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">note:</th><td class="field-body">Lifted verbatim from old intranet &#8211; edit me later</td>
+</tr>
+</tbody>
+</table>
+<p>We have two type of virtual machines in the lab. There are lxc-containers (which are more of a jailed/chroot and not really a VM) and libvirt VM&#8217;s.</p>
+<p>One easy way (there are many) you can figure out if its lxc or libvirt/kvm/qemu if it is running is by running this command on the guest:</p>
+<p>cat /proc/cpuinfo  | grep -i modelname | head -1</p>
+<p>On lxc the CPU will be an actual model (the HOST) but on qemu/kvm it will list QEMU Virtual CPU version 1.0.</p>
+<p>Figuring out which host the guest is on:</p>
+<p>If the machine is a teuthology used VPS, IE: hostname like vpmXXX then this can be found via teuthology:</p>
+<p>teuthology-lock &#8211;list vpmXXX | grep -i vpshost</p>
+<p>All vpm machines are libvirt/qemu/kvm.</p>
+<p>If it is not a vpm machine then odds are its on one of the internal VM hosts which are a mix of lxc and libvirt on senta01-04 and vercoi01-08. There is a very simple script on the teuthology server for finding which host its on (hopefully something better in the future). From the teuthology machine:</p>
+<blockquote>
+<div>vmsearch.sh &lt;guestname&gt;</div></blockquote>
+<p>Console for Libvirt:</p>
+<p>There are a variety of ways to manage the libvirt guests. The most GUI friendly one is to install virt-manager on your local machine. From there setup a new connection to the host (type should be ssh with ubuntu username). Virt-manager is pretty strait forward. For those who have machines that libvirt won&#8217;t run on or you don&#8217;t want to bother with a GUI you can get access to their VGA via a regular VNC client. You can find out what VNC port its running on by ssh&#8217;ing to the host machine and running:</p>
+<p>guest=guestname; ps aux | grep -i $guest | grep -v grep | awk -F &#8216;-vnc 127.0.0.1:&#8217; &#8216;{print $2}&#8217; | awk &#8216;{print $1+5900}&#8217;</p>
+<p>Just change guestname to which guest you are trying to access. This will print out a port number like 5905. You then can use this value with a ssh tunnel:</p>
+<p>ssh -L $portnum:localhost:$portnum ubuntu&#64;&lt;guest host&gt;.front.sepia.ceph.com -N</p>
+<p>Which will tunnel the data over SSH, You can then point your VNC client to localhost:$portnum to acess the VGA of the guest.</p>
+<p>Power for Libvirt:</p>
+<p>The guest can be powercycled via running this command on the host (or alternatively on configured machine like teuthology -c &lt;guest host&gt; added to virsh ran on a different machine):</p>
+<p>virsh destroy &lt;guestname&gt;</p>
+<p>Yes they chose very bad naming here. Even though it says destroy its really doing a hard power off (losing contents of the memory). There is a power option but that just sends ACPI stuff and won&#8217;t actually power off the guest in most cases.</p>
+<p>virsh start &lt;guestname&gt;</p>
+<p>The status of the guests can also be found by running:</p>
+<p>virsh list &#8211;all</p>
+<p>Console/power for lxc:</p>
+<p>Console can not be very easily accessed on lxc guests with the way they are configured right now. That being the said since they are a chrooted environment they generally don&#8217;t need to have the console accessed as they are not running their own kernel and thus are generally up if the host is up and its not hard on the guest (possible fs damage) to shut it down if it is unresponsive for some reason. Actually needing to do anything on these guests is pretty rare.</p>
+<p>All LXC commands should be ran on the host of said guest. For guest info (running or not) you can get its status via:</p>
+<p>sudo lxc-info -n &lt;guestname&gt;</p>
+<p>A guest can be stopped via:</p>
+<p>sudo lxc-stop -n &lt;guestname&gt;</p>
+<p>To start the guest again run:</p>
+<p>sudo lxc-start -d -n &lt;guestname&gt;</p>
+<p>If you need to troubleshoot something you can run it without -d so you get console output but there is not an easy way (from what I have seen) to detach from this later so if you want to run it long-term it should probably be done in screen or be prepared to shutdown the guest again to run with -d.</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../">Table Of Contents</a></h3>
+
+
+<!-- ugly kludge to make genindex look like it's part of the toc -->
+<ul style="margin-top: -10px"><li class="toctree-l1"><a class="reference internal" href="../genindex/">Index</a></li></ul>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search/" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex/" title="General Index"
+             >index</a></li>
+        <li class="nav-item nav-item-0"><a href="../">Sepia -- Notes on the test lab for the Ceph project</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2012, New Dream Network.
+    </div>
+  </body>
+</html>

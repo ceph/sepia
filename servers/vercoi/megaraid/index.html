@@ -1,0 +1,163 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>MegaRAID for Vercoi &mdash; Sepia -- Notes on the test lab for the Ceph project</title>
+    
+    <link rel="stylesheet" href="../../../_static/sepia.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     'dev',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
+    <link rel="top" title="Sepia -- Notes on the test lab for the Ceph project" href="../../../" />
+    <link rel="up" title="Vercoi" href="../" />
+    <link rel="next" title="Senta" href="../../senta/" />
+    <link rel="prev" title="Vercoi" href="../" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex/" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../senta/" title="Senta"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../" title="Vercoi"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../">Sepia -- Notes on the test lab for the Ceph project</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../../" >Servers</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="../" accesskey="U">Vercoi</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="megaraid-for-vercoi">
+<h1>MegaRAID for Vercoi<a class="headerlink" href="#megaraid-for-vercoi" title="Permalink to this headline">¶</a></h1>
+<p>To simplify disk space management, the disks in each <cite>vercoi</cite> are
+combined in a RAID-5, yielding approximately 1.5 TB of usable space.</p>
+<p>As MegaRAID cannot change RAID units currently being used, the easiest
+way to configure this is to</p>
+<ul class="simple">
+<li>attach a serial console via <code class="docutils literal"><span class="pre">ipmitool</span></code></li>
+<li>reset the server</li>
+<li>during boot press <code class="docutils literal"><span class="pre">control-Y</span></code> for the MegaRAID Preboot CLI</li>
+<li>enter MegaCLI commands to configure the RAID (see later)</li>
+<li>enter <code class="docutils literal"><span class="pre">q</span></code> to quit</li>
+<li>use <code class="docutils literal"><span class="pre">ipmitool</span></code> to power the server off and back on</li>
+</ul>
+<p>Note: this erases the disk contents; you will need to reinstall at
+this point.</p>
+<p>The Preboot CLI takes the same arguments as the <code class="docutils literal"><span class="pre">megacli</span></code> command
+line tool, but you leave out the command itself. That is, instead of
+<code class="docutils literal"><span class="pre">megacli</span> <span class="pre">-LdPdInfo</span> <span class="pre">-a0</span></code> you type <code class="docutils literal"><span class="pre">-LdPdInfo</span> <span class="pre">-a0</span></code>.</p>
+<p>The MegaCLI commands to configure vercoi are:</p>
+<div class="highlight-python"><div class="highlight"><pre>-CfgClr -a0
+-CfgLDDel -Lall -a0
+-CfgLdAdd -r5&#39;[252:0,252:1,252:2,252:3]&#39; WB RA Cached NoCachedBadBBU -a0
+</pre></div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../../../">Table Of Contents</a></h3>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../">Servers</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../plana/">Plana</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../mira/">Mira</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../burnupi/">Burnupi</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../">Vercoi</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="">MegaRAID for Vercoi</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../senta/">Senta</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../apama/">apama001 - apama002</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rhoda/">rhoda01 - rhoda04</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tala-saya/">Tala and Saya</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../irvingi/">irvingi01 - irvingi08</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../misc/">Misc Servers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../#networking-hardware">Networking hardware</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../#rdma">RDMA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../#fast-storage">Fast Storage</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../bios/">BIOS settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../drac/">Dell&#8217;s DRAC out-of-band management system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../network/">Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../adding_users/">Requesting Lab Access</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../adding_users/#adding-users-lab-admins">Adding users (lab admins)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../gitbuilder/">Notes creating gitbuilder-ceph-rpm-fedora22-amd64-basic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../ipmi/">Using IPMI on physical machines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../new_user/">New user basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../serial-console/">Using serial consoles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../vps/">VMs and containers</a></li>
+</ul>
+
+
+<!-- ugly kludge to make genindex look like it's part of the toc -->
+<ul style="margin-top: -10px"><li class="toctree-l1"><a class="reference internal" href="../../../genindex/">Index</a></li></ul>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search/" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex/" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../senta/" title="Senta"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../" title="Vercoi"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../">Sepia -- Notes on the test lab for the Ceph project</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../../" >Servers</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="../" >Vercoi</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2012, New Dream Network.
+    </div>
+  </body>
+</html>

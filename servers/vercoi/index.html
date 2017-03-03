@@ -1,0 +1,332 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Vercoi &mdash; Sepia -- Notes on the test lab for the Ceph project</title>
+    
+    <link rel="stylesheet" href="../../_static/sepia.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     'dev',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+    <link rel="top" title="Sepia -- Notes on the test lab for the Ceph project" href="../../" />
+    <link rel="up" title="Servers" href="../" />
+    <link rel="next" title="MegaRAID for Vercoi" href="megaraid/" />
+    <link rel="prev" title="Burnupi" href="../burnupi/" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex/" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="megaraid/" title="MegaRAID for Vercoi"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../burnupi/" title="Burnupi"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../">Sepia -- Notes on the test lab for the Ceph project</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../" accesskey="U">Servers</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="vercoi">
+<h1>Vercoi<a class="headerlink" href="#vercoi" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li>2u Dell C6100 (2 nodes/chassis)</li>
+<li>12 core/24 thread</li>
+<li>72G RAM</li>
+<li>4x500GB RAID</li>
+<li>VM hosts</li>
+</ul>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="megaraid/">MegaRAID for Vercoi</a></li>
+</ul>
+</div>
+<style>
+  .hardware-diagram td {
+    border: solid 1px black !important;
+  }
+
+  .hardware-diagram {
+    margin-bottom: 2em;
+  }
+</style><div class="figure" id="id1">
+<a class="reference internal image-reference" href="../../_images/vercoi-front.jpg"><img alt="../../_images/vercoi-front.jpg" src="../../_images/vercoi-front.jpg" style="width: 70%;" /></a>
+<p class="caption"><span class="caption-text">Front of a vercoi server.</span></p>
+<div class="legend">
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Mapping of hard drives to vercoiNN was done via
+documentation, not verified.</p>
+</div>
+<table border="1" class="hardware-diagram docutils" id="id2">
+<caption><span class="caption-text">Layout of the disks for blades</span><a class="headerlink" href="#id2" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="15%" />
+<col width="21%" />
+<col width="21%" />
+<col width="21%" />
+<col width="21%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>chassis</td>
+<td>1: vercoi02</td>
+<td>2: vercoi04</td>
+<td>3: vercoi01</td>
+<td>4: vercoi03</td>
+</tr>
+<tr class="row-even"><td>chassis</td>
+<td>1: vercoi06</td>
+<td>2: vercoi08</td>
+<td>3: vercoi05</td>
+<td>4: vercoi07</td>
+</tr>
+</tbody>
+</table>
+<table border="1" class="hardware-diagram docutils" id="id3">
+<caption><span class="caption-text">Drives for each blade (2.5&#8221;, vertical mount)</span><a class="headerlink" href="#id3" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="16%" />
+<col width="16%" />
+<col width="16%" />
+<col width="17%" />
+<col width="17%" />
+<col width="17%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>HDD 0: 500GB</td>
+<td>HDD 1: 500GB</td>
+<td>HDD 2: 500GB</td>
+<td>HDD 3: 500GB</td>
+<td>HDD 4: unused</td>
+<td>HDD 5: unused</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="figure" id="id4">
+<a class="reference internal image-reference" href="../../_images/vercoi-back.jpg"><img alt="../../_images/vercoi-back.jpg" src="../../_images/vercoi-back.jpg" style="width: 70%;" /></a>
+<p class="caption"><span class="caption-text">Back of a vercoi server.</span></p>
+<div class="legend">
+<table border="1" class="hardware-diagram docutils" id="id5">
+<caption><span class="caption-text">Layout of the blades</span><a class="headerlink" href="#id5" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="26%" />
+<col width="37%" />
+<col width="37%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td rowspan="2">chassis</td>
+<td>3: vercoi01</td>
+<td>1: vercoi02</td>
+</tr>
+<tr class="row-even"><td>4: vercoi03</td>
+<td>2: vercoi04</td>
+</tr>
+<tr class="row-odd"><td rowspan="2">chassis</td>
+<td>3: vercoi05</td>
+<td>1: vercoi06</td>
+</tr>
+<tr class="row-even"><td>4: vercoi07</td>
+<td>2: vercoi08</td>
+</tr>
+</tbody>
+</table>
+<table border="1" class="hardware-diagram docutils">
+<colgroup>
+<col width="15%" />
+<col width="17%" />
+<col width="17%" />
+<col width="25%" />
+<col width="17%" />
+<col width="10%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td colspan="4">PCI: NIC, 10g1 (back), 10g2 (unused)</td>
+<td colspan="2">PCI? unused</td>
+</tr>
+<tr class="row-even"><td>2xUSB</td>
+<td>NIC 1g
+(?)</td>
+<td>NIC 1g
+(?)</td>
+<td>DRAC
+ethernet</td>
+<td>Serial</td>
+<td>VGA</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Networking inside the Linux host:</p>
+<p class="graphviz">
+<img src="../../_images/graphviz-e1bea12e70f585e5fc79c7cfe5c4c40a9e708e13.svg" alt="digraph &quot;vercoi-interfaces&quot; {
+  edge [arrowhead=none];
+  node [shape=record];
+  
+  subgraph cluster_phys {
+    style=invis;
+    
+    subgraph cluster_phys_1g {
+      nic_1g1 [label=&quot;1g1&quot;];
+      nic_1g2 [label=&quot;1g2&quot;];
+      
+    }
+    subgraph cluster_phys_10g {
+      nic_10g1 [label=&quot;10g1&quot;];
+      nic_10g2 [label=&quot;10g2&quot;];
+    }
+    
+    {
+      // enforce layout order
+      edge [style=invis, minlen=0];
+      nic_1g1 -&gt; nic_1g2;
+      nic_10g1 -&gt; nic_10g2;
+    }
+  }
+  
+  subgraph cluster_vlan {
+    style=invis;
+    
+    vlan_back [label=&quot;vlan-back&quot;];
+    vlan_ipmi [label=&quot;vlan-ipmi&quot;];
+    vlan_pub [label=&quot;vlan-pub&quot;];
+  }
+  
+  subgraph cluster_bridge {
+    style=invis;
+    
+    br_front [label=&quot;br-front&quot;];
+    br_back [label=&quot;br-back&quot;];
+    br_ipmi [label=&quot;br-ipmi&quot;];
+    br_pub [label=&quot;br-pub&quot;];
+  }
+  
+  nic_1g1 -&gt; br_front;
+  
+  nic_10g2 -&gt; {
+    vlan_back;
+    vlan_ipmi;
+    vlan_pub;
+  }
+  vlan_back -&gt; br_back;
+  vlan_ipmi -&gt; br_ipmi;
+  vlan_pub -&gt; br_pub;
+  
+  vms [label=&quot;VMs&quot;];
+  {
+    br_front;
+    br_back;
+    br_ipmi;
+    br_pub;
+    } -&gt; vms [arrowhead=crow];
+}" />
+</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../../">Table Of Contents</a></h3>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../">Servers</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../plana/">Plana</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mira/">Mira</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../burnupi/">Burnupi</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Vercoi</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="megaraid/">MegaRAID for Vercoi</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../senta/">Senta</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../apama/">apama001 - apama002</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../rhoda/">rhoda01 - rhoda04</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tala-saya/">Tala and Saya</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../irvingi/">irvingi01 - irvingi08</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../misc/">Misc Servers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../#networking-hardware">Networking hardware</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../#rdma">RDMA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../#fast-storage">Fast Storage</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../bios/">BIOS settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../drac/">Dell&#8217;s DRAC out-of-band management system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../network/">Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../adding_users/">Requesting Lab Access</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../adding_users/#adding-users-lab-admins">Adding users (lab admins)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gitbuilder/">Notes creating gitbuilder-ceph-rpm-fedora22-amd64-basic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ipmi/">Using IPMI on physical machines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../new_user/">New user basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../serial-console/">Using serial consoles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../vps/">VMs and containers</a></li>
+</ul>
+
+
+<!-- ugly kludge to make genindex look like it's part of the toc -->
+<ul style="margin-top: -10px"><li class="toctree-l1"><a class="reference internal" href="../../genindex/">Index</a></li></ul>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search/" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex/" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="megaraid/" title="MegaRAID for Vercoi"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../burnupi/" title="Burnupi"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../">Sepia -- Notes on the test lab for the Ceph project</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../" >Servers</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2012, New Dream Network.
+    </div>
+  </body>
+</html>

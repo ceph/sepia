@@ -1,0 +1,116 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Make check bot &#8212; Sepia -- Notes on the test lab for the Ceph project</title>
+    
+    <link rel="stylesheet" href="../_static/sepia.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     'dev',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex/" />
+    <link rel="search" title="Search" href="../search/" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex/" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="nav-item nav-item-0"><a href="../">Sepia -- Notes on the test lab for the Ceph project</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="make-check-bot">
+<h1>Make check bot<a class="headerlink" href="#make-check-bot" title="Permalink to this headline">¶</a></h1>
+<p>The make check bot runs on every Ceph pull request and reports the
+result of <code class="docutils literal"><span class="pre">make</span> <span class="pre">check</span></code> as a comment to the corresponding pull
+request.</p>
+<div class="section" id="gitlab-instance">
+<h2>GitLab instance<a class="headerlink" href="#gitlab-instance" title="Permalink to this headline">¶</a></h2>
+<p>A <a class="reference external" href="http://workbench.dachary.org/">GitLab instance</a> mirrors the main
+Ceph git repository and has a web hook signaling a <a class="reference external" href="http://jenkins.ceph.dachary.org/">Jenkins instance</a> on each pull request update.</p>
+<p>To access <code class="docutils literal"><span class="pre">workbench.dachary.org</span></code> which is hosted on the Red Hat
+public cloud:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">ssh</span> <span class="o">-</span><span class="n">A</span> <span class="o">-</span><span class="n">p</span> <span class="mi">2222</span> <span class="n">ubuntu</span><span class="nd">@workbench</span><span class="o">.</span><span class="n">dachary</span><span class="o">.</span><span class="n">org</span>
+</pre></div>
+</div>
+<p>The corresponding virtual machine is <code class="docutils literal"><span class="pre">loic-workbench</span></code>.</p>
+<p>To access <code class="docutils literal"><span class="pre">jenkins.ceph.dachary.org</span></code> which is hosted by the Free
+Software Foundation France:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">ssh</span> <span class="o">-</span><span class="n">A</span> <span class="n">ubuntu</span><span class="nd">@jenkins</span><span class="o">.</span><span class="n">ceph</span><span class="o">.</span><span class="n">dachary</span><span class="o">.</span><span class="n">org</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="jenkins-slave">
+<h2>Jenkins Slave<a class="headerlink" href="#jenkins-slave" title="Permalink to this headline">¶</a></h2>
+<p>The Ceph jenkins job has a single slave, hosted on rex001. To access it:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">ssh</span> <span class="o">-</span><span class="n">A</span> <span class="n">loic</span><span class="nd">@rex001</span><span class="o">.</span><span class="n">front</span><span class="o">.</span><span class="n">lab</span><span class="o">.</span><span class="n">lax</span><span class="o">.</span><span class="n">redhat</span><span class="o">.</span><span class="n">com</span>
+<span class="n">docker</span> <span class="n">exec</span> <span class="o">-</span><span class="n">t</span> <span class="o">-</span><span class="n">i</span> <span class="n">slave001</span> <span class="n">bash</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../">Table Of Contents</a></h3>
+
+
+<!-- ugly kludge to make genindex look like it's part of the toc -->
+<ul style="margin-top: -10px"><li class="toctree-l1"><a class="reference internal" href="../genindex/">Index</a></li></ul>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search/" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex/" title="General Index"
+             >index</a></li>
+        <li class="nav-item nav-item-0"><a href="../">Sepia -- Notes on the test lab for the Ceph project</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2012, New Dream Network.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,290 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Network &mdash; Sepia -- Notes on the test lab for the Ceph project</title>
+    
+    <link rel="stylesheet" href="../_static/sepia.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     'dev',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="top" title="Sepia -- Notes on the test lab for the Ceph project" href="../" />
+    <link rel="next" title="Requesting Lab Access" href="../adding_users/" />
+    <link rel="prev" title="Browser Refuses SSL Certificates" href="../drac/ssl-certs/" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex/" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../adding_users/" title="Requesting Lab Access"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../drac/ssl-certs/" title="Browser Refuses SSL Certificates"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../">Sepia -- Notes on the test lab for the Ceph project</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="network">
+<h1>Network<a class="headerlink" href="#network" title="Permalink to this headline">¶</a></h1>
+<p>Overview of the network design for the Sepia lab. You are not expected
+to understand this ;)</p>
+<p class="graphviz">
+<img src="../_images/graphviz-62cf96cb9226f5389a4473464e0e987f92a6b009.svg" alt="digraph &quot;new-sepia-network&quot; {
+  edge [arrowhead=none];
+  node [shape=record];
+  
+  plana [label=&quot;96x plana|{&lt;10g1&gt;10g1|&lt;10g2&gt;10g2|&lt;1g1&gt;1g1|&lt;1g2&gt;1g2|&lt;ipmi&gt; ipmi}&quot;];
+  burnupi [label=&quot;64x burnupi|{&lt;10g1&gt;10g1|&lt;10g2&gt;10g2|&lt;1g1&gt;1g1|&lt;1g2&gt;1g2|&lt;ipmi&gt; ipmi}&quot;];
+  vercoi [label=&quot;8x vercoi|{&lt;10g1&gt;10g1|&lt;10g2&gt;10g2|&lt;1g1&gt;1g1|&lt;1g2&gt;1g2|&lt;ipmi&gt;ipmi}&quot;];
+  gw [label=&quot;gw&quot;];
+  
+  force10_tor [label=&quot;&lt;tor&gt;4x force10 top-of-rack|&lt;back&gt; back|&lt;mgmt&gt; mgmt&quot;];
+  force10_interconnect [label=&quot;&lt;ic&gt;2x force10 aggr|&lt;mgmt&gt; mgmt&quot;];
+  
+  force10_interconnect:ic -&gt; force10_tor:tor [weight=100, dir=both, arrowhead=crow, arrowtail=crow, style=bold];
+  
+  force10_interconnect:ic -&gt; world:trunk [weight=100, dir=both, arrowhead=crow, arrowtail=crow, style=bold];
+  
+  subgraph front {
+    edge [color=yellow3, arrowhead=diamond];
+    
+    force10_tor:back -&gt; plana:&quot;10g1&quot;;
+    force10_tor:back -&gt; burnupi:&quot;10g1&quot;;
+  }
+  force10_tor:tor -&gt; vercoi:&quot;10g1&quot; [weight=100, dir=both, arrowhead=crow, arrowtail=crow, style=bold];
+  
+  slow [label=&quot;&lt;tor&gt;4x 2960g tor|&lt;front&gt; front|&lt;mgmt&gt; mgmt&quot;];
+  slow:tor -&gt; world:trunk [weight=100, dir=both, arrowhead=crow, arrowtail=crow, style=bold];
+  
+  ipmi [label=&quot;&lt;sepia_ipmi&gt;4x 2960g ipmi|&lt;mgmt&gt; mgmt&quot;];
+  
+  world [label=&quot;&lt;trunk&gt;4948 world|&lt;pub&gt; public|&lt;front&gt; front|&lt;back&gt; back|&lt;sepia_ipmi&gt; sepia ipmi|&lt;rescue&gt; rescue|&lt;switch_mgmt&gt; switch mgmt vlan|&lt;mgmt&gt; mgmt&quot;];
+  
+  subgraph cluster_dh_managed {
+    label=&quot;DH managed&quot;;
+    style=dotted;
+    color=gray52;
+    
+    some_router;
+    office [shape=house];
+  }
+  
+  subgraph sepia_ipmi {
+    edge [color=blue];
+    
+    plana:ipmi -&gt; ipmi:sepia_ipmi;
+    burnupi:ipmi -&gt; ipmi:sepia_ipmi;
+    vercoi:ipmi -&gt; ipmi:sepia_ipmi;
+    ipmi:sepia_ipmi -&gt; world:sepia_ipmi;
+  }
+  
+  subgraph switch_mgmt {
+    edge [color=red];
+    
+    force10_tor:mgmt -&gt; world:switch_mgmt;
+    force10_interconnect:mgmt -&gt; world:switch_mgmt;
+    slow:mgmt -&gt; world:switch_mgmt;
+    ipmi:mgmt -&gt; world:switch_mgmt;
+  }
+  
+  subgraph back {
+    edge [color=green, dir=front, arrowtail=diamond];
+    
+    plana:&quot;1g1&quot; -&gt; slow:front;
+    burnupi:&quot;1g1&quot; -&gt; slow:front;
+    vercoi:&quot;1g1&quot; -&gt; slow:front;
+  }
+
+  slow:tor -&gt; vercoi:&quot;10g2&quot; [weight=100, dir=both, arrowhead=crow, arrowtail=crow, style=bold, label=&quot;1g&quot;];
+  
+  subgraph pub {
+    edge [color=orange1];
+    
+    world:trunk -&gt; gw [weight=100, dir=both, arrowhead=crow, arrowtail=crow, color=black, style=bold];
+    world:pub -&gt; gw;
+    world:pub -&gt; some_router;
+  }
+  
+  some_router -&gt; office;
+  
+  subgraph rescue {
+    edge [color=brown];
+    
+    vercoi:&quot;1g2&quot; -&gt; world:rescue [label=&quot;hypervisor access,\nhypervisor ipmi&quot;];
+  }
+}" />
+</p>
+<div class="section" id="vlans">
+<h2>VLANs<a class="headerlink" href="#vlans" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="35%" />
+<col width="16%" />
+<col width="48%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">name</th>
+<th class="head">vlan#</th>
+<th class="head">subnet</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>pub</td>
+<td>146</td>
+<td>64.90.32.32/27</td>
+</tr>
+<tr class="row-odd"><td>front</td>
+<td>214</td>
+<td>10.214.128.0/20</td>
+</tr>
+<tr class="row-even"><td>back</td>
+<td>2214</td>
+<td>10.214.144.0/20</td>
+</tr>
+<tr class="row-odd"><td>ipmi</td>
+<td>414</td>
+<td>10.214.0.0/20</td>
+</tr>
+<tr class="row-even"><td>switch mgmt</td>
+<td>514</td>
+<td>172.31.13.0/24</td>
+</tr>
+<tr class="row-odd"><td>rescue</td>
+<td>246</td>
+<td>10.246.128.0/20</td>
+</tr>
+<tr class="row-even"><td>isolated0</td>
+<td>1000</td>
+<td>&#8211;</td>
+</tr>
+<tr class="row-odd"><td>isolated1</td>
+<td>1001</td>
+<td>&#8211;</td>
+</tr>
+<tr class="row-even"><td>isolated2</td>
+<td>1002</td>
+<td>&#8211;</td>
+</tr>
+<tr class="row-odd"><td>isolated3</td>
+<td>1003</td>
+<td>&#8211;</td>
+</tr>
+<tr class="row-even"><td>isolated4</td>
+<td>1004</td>
+<td>&#8211;</td>
+</tr>
+<tr class="row-odd"><td>isolated5</td>
+<td>1005</td>
+<td>&#8211;</td>
+</tr>
+<tr class="row-even"><td>isolated6</td>
+<td>1006</td>
+<td>&#8211;</td>
+</tr>
+<tr class="row-odd"><td>isolated7</td>
+<td>1007</td>
+<td>&#8211;</td>
+</tr>
+<tr class="row-even"><td>isolated8</td>
+<td>1008</td>
+<td>&#8211;</td>
+</tr>
+<tr class="row-odd"><td>isolated9</td>
+<td>1009</td>
+<td>&#8211;</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../">Table Of Contents</a></h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../servers/">Servers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bios/">BIOS settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../drac/">Dell&#8217;s DRAC out-of-band management system</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Network</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#vlans">VLANs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../adding_users/">Requesting Lab Access</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../adding_users/#adding-users-lab-admins">Adding users (lab admins)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gitbuilder/">Notes creating gitbuilder-ceph-rpm-fedora22-amd64-basic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ipmi/">Using IPMI on physical machines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../new_user/">New user basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../serial-console/">Using serial consoles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../vps/">VMs and containers</a></li>
+</ul>
+
+
+<!-- ugly kludge to make genindex look like it's part of the toc -->
+<ul style="margin-top: -10px"><li class="toctree-l1"><a class="reference internal" href="../genindex/">Index</a></li></ul>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search/" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex/" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../adding_users/" title="Requesting Lab Access"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../drac/ssl-certs/" title="Browser Refuses SSL Certificates"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../">Sepia -- Notes on the test lab for the Ceph project</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2012, New Dream Network.
+    </div>
+  </body>
+</html>

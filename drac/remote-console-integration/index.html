@@ -1,0 +1,154 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Remote console doesn’t launch &mdash; Sepia -- Notes on the test lab for the Ceph project</title>
+    
+    <link rel="stylesheet" href="../../_static/sepia.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     'dev',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+    <link rel="top" title="Sepia -- Notes on the test lab for the Ceph project" href="../../" />
+    <link rel="up" title="Dell’s DRAC out-of-band management system" href="../" />
+    <link rel="next" title="Arrow keys etc don’t work in DRAC remote console" href="../remote-console-keys/" />
+    <link rel="prev" title="Remote console loses keyboard focus" href="../remote-console-focus/" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex/" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../remote-console-keys/" title="Arrow keys etc don’t work in DRAC remote console"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../remote-console-focus/" title="Remote console loses keyboard focus"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../">Sepia -- Notes on the test lab for the Ceph project</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../" accesskey="U">Dell&#8217;s DRAC out-of-band management system</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="remote-console-doesn-t-launch">
+<h1>Remote console doesn&#8217;t launch<a class="headerlink" href="#remote-console-doesn-t-launch" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="on-plana">
+<h2>On <cite>plana</cite><a class="headerlink" href="#on-plana" title="Permalink to this headline">¶</a></h2>
+<p>If you don&#8217;t have a Java plugin in your browser, launching the remote
+console just downloads a <code class="docutils literal"><span class="pre">viewer.jnlp(...)</span></code> <a class="reference external" href="http://en.wikipedia.org/wiki/Java_Web_Start#Java_Network_Launching_Protocol_.28JNLP.29">JNLP</a> file.</p>
+<p>To run the Java applet, you need:</p>
+<div class="highlight-python"><div class="highlight"><pre>sudo apt-get install openjdk-6-jre
+</pre></div>
+</div>
+<p>To launch the console, run:</p>
+<div class="highlight-python"><div class="highlight"><pre>javaws viewer.jnlp*
+</pre></div>
+</div>
+<p>Note that this is time-sensitive; the authentication token embedded in
+the JNLP file will expire in a few seconds.</p>
+<p>See also: <a class="reference internal" href="../remote-console-keys/"><em>Arrow keys etc don&#8217;t work in DRAC remote console</em></a>.</p>
+</div>
+<div class="section" id="on-vercoi">
+<h2>On <cite>vercoi</cite><a class="headerlink" href="#on-vercoi" title="Permalink to this headline">¶</a></h2>
+<p>The older DRAC version names the JNLP view <code class="docutils literal"><span class="pre">jviewer.jnlp</span></code>. Note that
+your browser may rename the file to avoid collisions, e.g. to
+<code class="docutils literal"><span class="pre">jviewer</span> <span class="pre">(1).jnlp</span></code>.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../../">Table Of Contents</a></h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../servers/">Servers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../bios/">BIOS settings</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../">Dell&#8217;s DRAC out-of-band management system</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../remote-console-focus/">Remote console loses keyboard focus</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Remote console doesn&#8217;t launch</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#on-plana">On <cite>plana</cite></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#on-vercoi">On <cite>vercoi</cite></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../remote-console-keys/">Arrow keys etc don&#8217;t work in DRAC remote console</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../serial-console-in-use/">How to fix serial console in use error</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ssh-keys/">SSH RSA keys must be &lt;=2047 bits</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ssl-certs/">Browser Refuses SSL Certificates</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../network/">Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../adding_users/">Requesting Lab Access</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../adding_users/#adding-users-lab-admins">Adding users (lab admins)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gitbuilder/">Notes creating gitbuilder-ceph-rpm-fedora22-amd64-basic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ipmi/">Using IPMI on physical machines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../new_user/">New user basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../serial-console/">Using serial consoles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../vps/">VMs and containers</a></li>
+</ul>
+
+
+<!-- ugly kludge to make genindex look like it's part of the toc -->
+<ul style="margin-top: -10px"><li class="toctree-l1"><a class="reference internal" href="../../genindex/">Index</a></li></ul>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search/" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex/" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../remote-console-keys/" title="Arrow keys etc don’t work in DRAC remote console"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../remote-console-focus/" title="Remote console loses keyboard focus"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../">Sepia -- Notes on the test lab for the Ceph project</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../" >Dell&#8217;s DRAC out-of-band management system</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2012, New Dream Network.
+    </div>
+  </body>
+</html>

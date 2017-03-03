@@ -1,0 +1,227 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Requesting Lab Access &#8212; Sepia -- Notes on the test lab for the Ceph project</title>
+    
+    <link rel="stylesheet" href="../_static/sepia.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     'dev',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex/" />
+    <link rel="search" title="Search" href="../search/" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex/" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="nav-item nav-item-0"><a href="../">Sepia -- Notes on the test lab for the Ceph project</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="requesting-lab-access">
+<h1>Requesting Lab Access<a class="headerlink" href="#requesting-lab-access" title="Permalink to this headline">¶</a></h1>
+<ol class="arabic">
+<li><p class="first"><a class="reference external" href="http://tracker.ceph.com/projects/lab/issues/new">File a ticket</a>.</p>
+</li>
+<li><p class="first">Set <strong>Tracker</strong> to &#8220;Support&#8221;</p>
+</li>
+<li><p class="first">Set <strong>Issue template</strong> to &#8220;Sepia Lab Access Request.&#8221;</p>
+<p><strong>NOTE:</strong> you may need to disable javascript-blocking browser plugins.</p>
+</li>
+<li><p class="first">Fill out the issue template with the following information:</p>
+</li>
+</ol>
+<blockquote>
+<div><ul>
+<li><p class="first">Whether you are only requesting access to schedule jobs (and view their
+results), or also to run jobs manually. The latter is more restricted in
+that it is usually only granted to core developers.</p>
+</li>
+<li><p class="first">The username you would like to use. This should probably just be the first
+part of your email address, but exceptions are possible.</p>
+</li>
+<li><p class="first">Alternate e-mail addresses (other than the one you used to create your
+Tracker account.</p>
+</li>
+<li><p class="first">Existing contributions to Ceph</p>
+</li>
+<li><p class="first">A public SSH key.  You may already have this (<code class="docutils literal"><span class="pre">cat</span>
+<span class="pre">~/.ssh/id_rsa.pub</span></code>).  If necessary, you can create a new one on the
+machine you will be connecting from with:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">ssh</span><span class="o">-</span><span class="n">keygen</span> <span class="o">-</span><span class="n">t</span> <span class="n">rsa</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">A hashed VPN password.  See below for how to set this up:</p>
+</li>
+</ul>
+</div></blockquote>
+<div class="section" id="setting-up-vpn-client">
+<h2>Setting up VPN client<a class="headerlink" href="#setting-up-vpn-client" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic">
+<li><p class="first">Install openvpn:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">openvpn</span>
+</pre></div>
+</div>
+<p>or:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">yum</span> <span class="n">install</span> <span class="o">-</span><span class="n">y</span> <span class="n">openvpn</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Get the tarball and extract it:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">openvpn</span>
+<span class="n">wget</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">ceph</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">sage</span><span class="o">/</span><span class="n">sepia</span><span class="o">-</span><span class="n">vpn</span><span class="o">-</span><span class="n">client</span><span class="o">.</span><span class="n">tar</span><span class="o">.</span><span class="n">gz</span>
+<span class="n">tar</span> <span class="n">zxvf</span> <span class="n">sepia</span><span class="o">-</span><span class="n">vpn</span><span class="o">-</span><span class="n">client</span><span class="o">.</span><span class="n">tar</span><span class="o">.</span><span class="n">gz</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Create a new VPN password.  Please use a descriptive user and host below so
+that both you and the lab admins can identify who you are (e.g.,
+<a class="reference external" href="mailto:sage&#37;&#52;&#48;flab">sage<span>&#64;</span>flab</a>):</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sepia</span><span class="o">/</span><span class="n">new</span><span class="o">-</span><span class="n">client</span> <span class="n">USER</span><span class="nd">@HOST</span>
+
+<span class="ow">and</span> <span class="n">capture</span> <span class="n">its</span> <span class="n">output</span> <span class="n">to</span> <span class="n">include</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">ticket</span><span class="o">.</span>  <span class="n">This</span> <span class="ow">is</span> <span class="n">your</span>
+<span class="n">hashed</span> <span class="n">VPN</span> <span class="n">password</span><span class="o">.</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Some distros use &#8216;nogroup&#8217; in /etc/groups; some use &#8216;nobody&#8217;.
+If yours does not use &#8216;nogroup&#8217;, edit the &#8216;group&#8217; line in
+the sepia.conf file created above.</p>
+</li>
+<li><p class="first">Once everything is set at the lab, you can start the VPN with:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">service</span> <span class="n">openvpn</span> <span class="n">start</span>
+</pre></div>
+</div>
+<p>or similar (depending on your distro).</p>
+</li>
+</ol>
+</div>
+<div class="section" id="mac-tunnelblick">
+<h2>Mac/Tunnelblick<a class="headerlink" href="#mac-tunnelblick" title="Permalink to this headline">¶</a></h2>
+<p>If using Mac/Tunnelblick, this is a way that&#8217;s been found to work; it
+may not be the only way:</p>
+<ol class="arabic">
+<li><p class="first">comment out (add a leading &#8216;#&#8217; to) the line in /etc/openvpn/sepia.conf that mentions &#8216;secret&#8217;:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># auth-user-pass sepia.client/secret</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">add a new line that contains only:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">auth</span><span class="o">-</span><span class="n">user</span><span class="o">-</span><span class="k">pass</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">connect with Tunnelblick</p>
+</li>
+<li><p class="first">when prompted for user/pass, enter username <a class="reference external" href="mailto:MYUSERNAME&#37;&#52;&#48;MYHOST">MYUSERNAME<span>&#64;</span>MYHOST</a> as above, and for password use the secret contents of the file /etc/openvpn/sepia.client/secret, (do not use the username)</p>
+</li>
+<li><p class="first">click the &#8220;Save to keychain&#8221; box.</p>
+</li>
+</ol>
+<p>(Alternatively command line openvpn can be used as well with the mac os X tun/tap driver).</p>
+</div>
+</div>
+<div class="section" id="adding-users-lab-admins">
+<h1>Adding users (lab admins)<a class="headerlink" href="#adding-users-lab-admins" title="Permalink to this headline">¶</a></h1>
+<ol class="arabic">
+<li><p class="first">Add the user&#8217;s ssh public key to the <a class="reference external" href="https://github.com/ceph/keys">keys</a> repo</p>
+</li>
+<li><p class="first">Create new user entry under <code class="docutils literal"><span class="pre">lab_users</span></code> (or <code class="docutils literal"><span class="pre">admin_users</span></code> if applicable) in <a class="reference external" href="https://github.com/ceph/ceph-sepia-secrets/blob/master/ansible/inventory/group_vars/all.yml">ceph-sepia-secrets.git/ansible/inventory/group_vars/all.yml</a>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># Example:</span>
+<span class="o">-</span> <span class="n">name</span><span class="p">:</span> <span class="n">uname</span>
+  <span class="n">key</span><span class="p">:</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">raw</span><span class="o">.</span><span class="n">githubusercontent</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">ceph</span><span class="o">/</span><span class="n">keys</span><span class="o">/</span><span class="n">master</span><span class="o">/</span><span class="n">ssh</span><span class="o">/</span><span class="n">uname</span><span class="o">.</span><span class="n">pub</span>
+  <span class="n">ovpn</span><span class="p">:</span> <span class="n">uname</span><span class="nd">@host</span> <span class="n">asdf</span> <span class="n">etc</span><span class="o">.</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Once both PRs have been merged, make sure your local repos are up to date and run the ansible to add the user to the OpenVPN gateway, teuthology, and testnodes:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="o">&lt;</span><span class="n">path</span><span class="o">-</span><span class="n">to</span><span class="o">-</span><span class="n">ceph</span><span class="o">-</span><span class="n">cm</span><span class="o">-</span><span class="n">ansible</span><span class="o">&gt;</span>
+<span class="n">ansible</span><span class="o">-</span><span class="n">playbook</span> <span class="o">-</span><span class="n">i</span> <span class="o">&lt;</span><span class="n">path</span><span class="o">-</span><span class="n">to</span><span class="o">-</span><span class="n">ceph</span><span class="o">-</span><span class="n">sepia</span><span class="o">-</span><span class="n">secrets</span><span class="o">&gt;/</span><span class="n">ansible</span><span class="o">/</span><span class="n">inventory</span><span class="o">/</span><span class="n">sepia</span> <span class="n">gateway</span><span class="o">.</span><span class="n">yml</span> <span class="o">--</span><span class="n">tags</span><span class="o">=</span><span class="s2">&quot;users&quot;</span>
+<span class="n">ansible</span><span class="o">-</span><span class="n">playbook</span> <span class="o">-</span><span class="n">i</span> <span class="o">&lt;</span><span class="n">path</span><span class="o">-</span><span class="n">to</span><span class="o">-</span><span class="n">ceph</span><span class="o">-</span><span class="n">sepia</span><span class="o">-</span><span class="n">secrets</span><span class="o">&gt;/</span><span class="n">ansible</span><span class="o">/</span><span class="n">inventory</span><span class="o">/</span><span class="n">sepia</span> <span class="n">teuthology</span><span class="o">.</span><span class="n">yml</span> <span class="o">--</span><span class="n">limit</span><span class="o">=</span><span class="s2">&quot;teuthology*&quot;</span> <span class="o">--</span><span class="n">tags</span><span class="o">=</span><span class="s2">&quot;user,pubkeys&quot;</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">And if you&#8217;re feeling generous <a class="footnote-reference" href="#id2" id="id1">[*]</a>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">ansible</span><span class="o">-</span><span class="n">playbook</span> <span class="o">-</span><span class="n">i</span> <span class="o">&lt;</span><span class="n">path</span><span class="o">-</span><span class="n">to</span><span class="o">-</span><span class="n">ceph</span><span class="o">-</span><span class="n">sepia</span><span class="o">-</span><span class="n">secrets</span><span class="o">&gt;/</span><span class="n">ansible</span><span class="o">/</span><span class="n">inventory</span><span class="o">/</span><span class="n">sepia</span> <span class="n">users</span><span class="o">.</span><span class="n">yml</span>
+</pre></div>
+</div>
+</li>
+</ol>
+<p>You need not use -i if you have some other way to refer to the sepia
+inventory file.</p>
+<table class="docutils footnote" frame="void" id="id2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[*]</a></td><td>Since the <code class="docutils literal"><span class="pre">testnodes</span></code> role, and thus, <code class="docutils literal"><span class="pre">users</span></code>, role gets run with each teuthology run, the user account will eventually get added to all the testnodes either way.</td></tr>
+</tbody>
+</table>
+<p>See <a class="reference external" href="https://github.com/ceph/ceph-cm-ansible/tree/master/roles/users#usage">https://github.com/ceph/ceph-cm-ansible/tree/master/roles/users#usage</a>
+for further information.</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../">Table Of Contents</a></h3>
+
+
+<!-- ugly kludge to make genindex look like it's part of the toc -->
+<ul style="margin-top: -10px"><li class="toctree-l1"><a class="reference internal" href="../genindex/">Index</a></li></ul>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search/" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex/" title="General Index"
+             >index</a></li>
+        <li class="nav-item nav-item-0"><a href="../">Sepia -- Notes on the test lab for the Ceph project</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2012, New Dream Network.
+    </div>
+  </body>
+</html>

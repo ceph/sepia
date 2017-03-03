@@ -1,0 +1,221 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Senta &#8212; Sepia -- Notes on the test lab for the Ceph project</title>
+    
+    <link rel="stylesheet" href="../../_static/sepia.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     'dev',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../genindex/" />
+    <link rel="search" title="Search" href="../../search/" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex/" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="nav-item nav-item-0"><a href="../../">Sepia -- Notes on the test lab for the Ceph project</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="senta">
+<h1>Senta<a class="headerlink" href="#senta" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li>1u Supermicro</li>
+<li>12 core/24 thread</li>
+<li>72G RAM</li>
+<li>4x500GB MDADM</li>
+<li>VM hosts</li>
+</ul>
+<style>
+  .hardware-diagram td {
+    border: solid 1px black !important;
+  }
+
+  .hardware-diagram {
+    margin-bottom: 2em;
+  }
+</style><div class="figure" id="id1">
+<a class="reference internal image-reference" href="../../_images/senta-front.jpg"><img alt="../../_images/senta-front.jpg" src="../../_images/senta-front.jpg" style="width: 70%;" /></a>
+<p class="caption"><span class="caption-text">Front of a senta server.</span></p>
+<div class="legend">
+<table border="1" class="hardware-diagram docutils">
+<colgroup>
+<col width="22%" />
+<col width="22%" />
+<col width="27%" />
+<col width="29%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>&#160;</td>
+<td>dvd-rom</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>HDD 1TB</td>
+<td>HDD 1TB</td>
+<td>HDD 1TB</td>
+<td>HDD 1TB</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="figure" id="id2">
+<a class="reference internal image-reference" href="../../_images/senta-back.jpg"><img alt="../../_images/senta-back.jpg" src="../../_images/senta-back.jpg" style="width: 70%;" /></a>
+<p class="caption"><span class="caption-text">Back of a senta server.</span></p>
+<div class="legend">
+<table border="1" class="hardware-diagram docutils">
+<colgroup>
+<col width="10%" />
+<col width="8%" />
+<col width="10%" />
+<col width="8%" />
+<col width="12%" />
+<col width="12%" />
+<col width="40%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>PS/2</td>
+<td>IPMI</td>
+<td colspan="5">&#160;</td>
+</tr>
+<tr class="row-even"><td>PS/2</td>
+<td>2xUSB</td>
+<td>Serial</td>
+<td>VGA</td>
+<td>NIC 1g1
+(front)</td>
+<td>NIC 1g2
+(Others)</td>
+<td>PCI 1: unused</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Networking inside the Linux host:</p>
+<object data="../../_images/graphviz-7a9cfaddb2df2beb45701cb768d5b5102c2bca71.svg" type="image/svg+xml">
+            <p class="warning">digraph &quot;senta-interfaces&quot; {
+  edge [arrowhead=none];
+  node [shape=record];
+
+  subgraph cluster_phys {
+    style=invis;
+
+    subgraph cluster_phys_1g {
+      nic_1g1 [label=&quot;1g1&quot;];
+      nic_1g2 [label=&quot;1g2&quot;];
+
+    }
+
+    {
+      // enforce layout order
+      edge [style=invis, minlen=0];
+      nic_1g1 -&gt; nic_1g2;
+    }
+  }
+
+  subgraph cluster_vlan {
+    style=invis;
+
+    vlan_back [label=&quot;vlan-back&quot;];
+    vlan_ipmi [label=&quot;vlan-ipmi&quot;];
+    vlan_pub [label=&quot;vlan-pub&quot;];
+  }
+
+  subgraph cluster_bridge {
+    style=invis;
+
+    br_front [label=&quot;br-front&quot;];
+    br_back [label=&quot;br-back&quot;];
+    br_ipmi [label=&quot;br-ipmi&quot;];
+    br_pub [label=&quot;br-pub&quot;];
+  }
+
+  nic_1g1 -&gt; br_front;
+
+  nic_1g2 -&gt; {
+    vlan_back;
+    vlan_ipmi;
+    vlan_pub;
+  }
+  vlan_back -&gt; br_back;
+  vlan_ipmi -&gt; br_ipmi;
+  vlan_pub -&gt; br_pub;
+
+  vms [label=&quot;VMs&quot;];
+  {
+    br_front;
+    br_back;
+    br_ipmi;
+    br_pub;
+    } -&gt; vms [arrowhead=crow];
+}</p></object>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../../">Table Of Contents</a></h3>
+
+
+<!-- ugly kludge to make genindex look like it's part of the toc -->
+<ul style="margin-top: -10px"><li class="toctree-l1"><a class="reference internal" href="../../genindex/">Index</a></li></ul>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search/" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex/" title="General Index"
+             >index</a></li>
+        <li class="nav-item nav-item-0"><a href="../../">Sepia -- Notes on the test lab for the Ceph project</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2012, New Dream Network.
+    </div>
+  </body>
+</html>

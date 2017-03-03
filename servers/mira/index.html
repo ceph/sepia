@@ -1,0 +1,163 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Mira &#8212; Sepia -- Notes on the test lab for the Ceph project</title>
+    
+    <link rel="stylesheet" href="../../_static/sepia.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     'dev',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../genindex/" />
+    <link rel="search" title="Search" href="../../search/" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex/" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="nav-item nav-item-0"><a href="../../">Sepia -- Notes on the test lab for the Ceph project</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="mira">
+<h1>Mira<a class="headerlink" href="#mira" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li>2u Supermicro</li>
+<li>4 core/8 thread</li>
+<li>16G RAM</li>
+<li>8x1T SATA disks</li>
+<li>1 gig network</li>
+</ul>
+<style>
+  .hardware-diagram td {
+    border: solid 1px black !important;
+  }
+
+  .hardware-diagram {
+    margin-bottom: 2em;
+  }
+</style><div class="figure" id="id1">
+<a class="reference internal image-reference" href="../../_images/mira-front.jpg"><img alt="../../_images/mira-front.jpg" src="../../_images/mira-front.jpg" style="width: 70%;" /></a>
+<p class="caption"><span class="caption-text">Front of a mira server.</span></p>
+<div class="legend">
+<table border="1" class="hardware-diagram docutils">
+<colgroup>
+<col width="26%" />
+<col width="26%" />
+<col width="26%" />
+<col width="0%" />
+<col width="23%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>HDD 1TB</td>
+<td>HDD 1TB</td>
+<td>HDD 1TB</td>
+<td colspan="2">HDD 1TB</td>
+</tr>
+<tr class="row-even"><td>HDD 1TB</td>
+<td>HDD 1TB</td>
+<td colspan="3">HDD 1TB | HDD 1TB</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="figure" id="id2">
+<a class="reference internal image-reference" href="../../_images/mira-back.jpg"><img alt="../../_images/mira-back.jpg" src="../../_images/mira-back.jpg" style="width: 70%;" /></a>
+<p class="caption"><span class="caption-text">Back of a mira server.</span></p>
+<div class="legend">
+<table border="1" class="hardware-diagram docutils">
+<colgroup>
+<col width="10%" />
+<col width="7%" />
+<col width="12%" />
+<col width="11%" />
+<col width="12%" />
+<col width="49%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td colspan="5">&#160;</td>
+<td rowspan="3">PCI-E slots 1-7 (half height)</td>
+</tr>
+<tr class="row-even"><td>ps/2</td>
+<td>IPMI</td>
+<td colspan="3">&#160;</td>
+</tr>
+<tr class="row-odd"><td>ps/2</td>
+<td>USB</td>
+<td>Serial</td>
+<td>NIC 1g1
+(front)</td>
+<td>NIC 1g2
+(unused)</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../../">Table Of Contents</a></h3>
+
+
+<!-- ugly kludge to make genindex look like it's part of the toc -->
+<ul style="margin-top: -10px"><li class="toctree-l1"><a class="reference internal" href="../../genindex/">Index</a></li></ul>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search/" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex/" title="General Index"
+             >index</a></li>
+        <li class="nav-item nav-item-0"><a href="../../">Sepia -- Notes on the test lab for the Ceph project</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2012, New Dream Network.
+    </div>
+  </body>
+</html>

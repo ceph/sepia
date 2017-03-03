@@ -1,0 +1,207 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Plana &mdash; Sepia -- Notes on the test lab for the Ceph project</title>
+    
+    <link rel="stylesheet" href="../../_static/sepia.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     'dev',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+    <link rel="top" title="Sepia -- Notes on the test lab for the Ceph project" href="../../" />
+    <link rel="up" title="Servers" href="../" />
+    <link rel="next" title="Mira" href="../mira/" />
+    <link rel="prev" title="Servers" href="../" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex/" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../mira/" title="Mira"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../" title="Servers"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../">Sepia -- Notes on the test lab for the Ceph project</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../" accesskey="U">Servers</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="plana">
+<h1>Plana<a class="headerlink" href="#plana" title="Permalink to this headline">¶</a></h1>
+<style>
+  .hardware-diagram td {
+    border: solid 1px black !important;
+  }
+
+  .hardware-diagram {
+    margin-bottom: 2em;
+  }
+</style><div class="figure" id="id1">
+<a class="reference internal image-reference" href="../../_images/plana-front.jpg"><img alt="../../_images/plana-front.jpg" src="../../_images/plana-front.jpg" style="width: 70%;" /></a>
+<p class="caption"><span class="caption-text">Front of a plana server.</span></p>
+<div class="legend">
+<table border="1" class="hardware-diagram docutils">
+<colgroup>
+<col width="15%" />
+<col width="9%" />
+<col width="11%" />
+<col width="13%" />
+<col width="26%" />
+<col width="26%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>Serial</td>
+<td colspan="2">&nbsp;</td>
+<td>2xUSB</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td colspan="2">HDD 0: 500GB</td>
+<td colspan="2">HDD 1: 500GB</td>
+<td>HDD 2: 500GB</td>
+<td>HDD 3: 500GB</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="figure" id="id2">
+<a class="reference internal image-reference" href="../../_images/plana-back.jpg"><img alt="../../_images/plana-back.jpg" src="../../_images/plana-back.jpg" style="width: 70%;" /></a>
+<p class="caption"><span class="caption-text">Back of a plana server.</span></p>
+<div class="legend">
+<table border="1" class="hardware-diagram docutils">
+<colgroup>
+<col width="10%" />
+<col width="6%" />
+<col width="12%" />
+<col width="8%" />
+<col width="12%" />
+<col width="52%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td colspan="2">&nbsp;</td>
+<td>DRAC
+SD-card</td>
+<td>&nbsp;</td>
+<td>NIC 1g1
+(front)</td>
+<td>PCI: NIC, A 10g1 (back), B 10g2 (unused)</td>
+</tr>
+<tr class="row-even"><td>Serial</td>
+<td>VGA</td>
+<td>DRAC
+ethernet</td>
+<td>2xUSB</td>
+<td>NIC 1g2
+(unused)</td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../../">Table Of Contents</a></h3>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../">Servers</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="">Plana</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mira/">Mira</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../burnupi/">Burnupi</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vercoi/">Vercoi</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../senta/">Senta</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../apama/">apama001 - apama002</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../rhoda/">rhoda01 - rhoda04</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tala-saya/">Tala and Saya</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../irvingi/">irvingi01 - irvingi08</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../misc/">Misc Servers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../#networking-hardware">Networking hardware</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../#rdma">RDMA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../#fast-storage">Fast Storage</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../bios/">BIOS settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../drac/">Dell&#8217;s DRAC out-of-band management system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../network/">Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../adding_users/">Requesting Lab Access</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../adding_users/#adding-users-lab-admins">Adding users (lab admins)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gitbuilder/">Notes creating gitbuilder-ceph-rpm-fedora22-amd64-basic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ipmi/">Using IPMI on physical machines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../new_user/">New user basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../serial-console/">Using serial consoles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../vps/">VMs and containers</a></li>
+</ul>
+
+
+<!-- ugly kludge to make genindex look like it's part of the toc -->
+<ul style="margin-top: -10px"><li class="toctree-l1"><a class="reference internal" href="../../genindex/">Index</a></li></ul>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search/" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex/" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../mira/" title="Mira"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../" title="Servers"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../">Sepia -- Notes on the test lab for the Ceph project</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../" >Servers</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2012, New Dream Network.
+    </div>
+  </body>
+</html>

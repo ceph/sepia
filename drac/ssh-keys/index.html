@@ -1,0 +1,138 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>SSH RSA keys must be &lt;=2047 bits &mdash; Sepia -- Notes on the test lab for the Ceph project</title>
+    
+    <link rel="stylesheet" href="../../_static/sepia.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     'dev',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+    <link rel="top" title="Sepia -- Notes on the test lab for the Ceph project" href="../../" />
+    <link rel="up" title="Dell’s DRAC out-of-band management system" href="../" />
+    <link rel="next" title="Browser Refuses SSL Certificates" href="../ssl-certs/" />
+    <link rel="prev" title="How to fix serial console in use error" href="../serial-console-in-use/" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex/" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../ssl-certs/" title="Browser Refuses SSL Certificates"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../serial-console-in-use/" title="How to fix serial console in use error"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../">Sepia -- Notes on the test lab for the Ceph project</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../" accesskey="U">Dell&#8217;s DRAC out-of-band management system</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="ssh-rsa-keys-must-be-2047-bits">
+<h1>SSH RSA keys must be &lt;=2047 bits<a class="headerlink" href="#ssh-rsa-keys-must-be-2047-bits" title="Permalink to this headline">¶</a></h1>
+<p>For iDRAC6 to accept SSH key authorization, the key must be RSA&lt;=2047
+bits, or DSA. You may need to create a new SSH key just for that.</p>
+<p>To create an RSA key that is 2047 bits long, and store it in <code class="docutils literal"><span class="pre">drac</span></code>
+and <code class="docutils literal"><span class="pre">drac.pub</span></code>:</p>
+<div class="highlight-python"><div class="highlight"><pre>ssh-keygen -t rsa -b 2047 -f drac
+</pre></div>
+</div>
+<p>Apparently DSA, as implemented in OpenSSH, is considered weaker, so
+please use RSA. Sources: <a class="reference external" href="http://www.linuxforums.org/forum/security/3515-rsa-versus-dsa.html">1</a>
+<a class="reference external" href="http://meyering.net/nuke-your-DSA-keys/">2</a></p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../../">Table Of Contents</a></h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../servers/">Servers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../bios/">BIOS settings</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../">Dell&#8217;s DRAC out-of-band management system</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../remote-console-focus/">Remote console loses keyboard focus</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../remote-console-integration/">Remote console doesn&#8217;t launch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../remote-console-keys/">Arrow keys etc don&#8217;t work in DRAC remote console</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../serial-console-in-use/">How to fix serial console in use error</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">SSH RSA keys must be &lt;=2047 bits</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ssl-certs/">Browser Refuses SSL Certificates</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../network/">Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../adding_users/">Requesting Lab Access</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../adding_users/#adding-users-lab-admins">Adding users (lab admins)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gitbuilder/">Notes creating gitbuilder-ceph-rpm-fedora22-amd64-basic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ipmi/">Using IPMI on physical machines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../new_user/">New user basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../serial-console/">Using serial consoles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../vps/">VMs and containers</a></li>
+</ul>
+
+
+<!-- ugly kludge to make genindex look like it's part of the toc -->
+<ul style="margin-top: -10px"><li class="toctree-l1"><a class="reference internal" href="../../genindex/">Index</a></li></ul>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search/" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex/" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../ssl-certs/" title="Browser Refuses SSL Certificates"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../serial-console-in-use/" title="How to fix serial console in use error"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../">Sepia -- Notes on the test lab for the Ceph project</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../" >Dell&#8217;s DRAC out-of-band management system</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2012, New Dream Network.
+    </div>
+  </body>
+</html>
